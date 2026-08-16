@@ -1,0 +1,134 @@
+Zippo Logistics — Discovery Call 2 (Follow-up)
+Date: 19 March 2024
+Duration: 26:38
+Participants: Priya Nair (Zippo, Co-founder), Ravi Deshmukh (Zippo, Operations Manager),
+Firoz Shaikh (Zippo, Delivery Partner — joined for 10 minutes), Anjali Rao (Consultant),
+Dev Menon (Consultant, Tech)
+Auto-generated transcript. Speaker labels may be imperfect.
+
+[00:00:08] Anjali Rao: Thanks for the second round. I want to check a few things we weren't sure about, and then Firoz is joining for the driver side, is that right?
+[00:00:19] Ravi Deshmukh: Yes he will come around 10 past, he is finishing one delivery.
+[00:00:26] Anjali Rao: Perfect. So first — walk me through the morning again, in order. I want to get the timing exactly right.
+[00:00:36] Ravi Deshmukh: Morning I reach hub by 5:45, 6.
+[00:00:42] Anjali Rao: Six in the morning?
+[00:00:45] Ravi Deshmukh: Yes because I have to do the assignment before drivers come. Drivers start reaching from 7:30.
+[00:00:55] Anjali Rao: So the assignment itself happens at 6am, on the day.
+[00:01:02] Ravi Deshmukh: Correct. I sit with the sheet, I see which areas, I divide.
+[00:01:10] Dev Menon: Not the previous evening?
+[00:01:13] Ravi Deshmukh: Evening I can't, because BlueCart's file comes 8pm, 9pm sometimes. And Hometown sends even later. If I do it evening I have to do it again in morning anyway.
+[00:01:29] Dev Menon: Okay, that's clear.
+[00:01:33] Anjali Rao: And what are you actually deciding when you divide?
+[00:01:39] Ravi Deshmukh: Area mainly. I don't want one driver going Andheri and then Vashi. Waste of time.
+[00:01:48] Ravi Deshmukh: Also which driver knows which area. Suresh knows Powai side very well. Imran is good in south Mumbai.
+[00:01:59] Anjali Rao: So there's knowledge in your head about who's good where.
+[00:02:05] Ravi Deshmukh: Fifteen years I am doing this. It's all in my head.
+[00:02:11] Priya Nair: This is what worries me. If Ravi takes leave, we are finished.
+[00:02:18] Ravi Deshmukh: I have not taken leave in two years.
+[00:02:23] Priya Nair: That's not a good thing, Ravi.
+[00:02:27] Anjali Rao: That's actually a real risk we should note.
+
+[00:02:38] Dev Menon: Ravi, the two brands — you said the formats are different. Can you describe?
+[00:02:46] Ravi Deshmukh: BlueCart Excel is proper. Columns are fixed. Order ID, customer name, phone, address, pin code, COD amount.
+[00:02:58] Ravi Deshmukh: Hometown is not fixed. Sometimes Excel, sometimes photo, sometimes they type in WhatsApp message directly.
+[00:03:09] Dev Menon: In the message body?
+[00:03:12] Ravi Deshmukh: Yes, like a list. Ten orders typed in one message.
+[00:03:19] Dev Menon: And you retype all of it.
+[00:03:23] Ravi Deshmukh: Retype. Every day.
+[00:03:28] Anjali Rao: Are there other brands coming?
+[00:03:32] Priya Nair: We are in talks with two more. That's the plan for this year.
+[00:03:39] Anjali Rao: With the same manual process?
+[00:03:43] Priya Nair: That's why we are talking to you.
+
+[00:04:02] Anjali Rao: I want to ask about volume properly. How many deliveries per day?
+[00:04:10] Priya Nair: Around 250, 300 on a good day.
+[00:04:16] Ravi Deshmukh: No no. 300 is Diwali time. Normal days it is much less.
+[00:04:24] Anjali Rao: What's a normal day?
+[00:04:27] Ravi Deshmukh: It varies. Monday is heavy, Wednesday is light.
+[00:04:34] Dev Menon: Could you send us the last month's sheet? We can count.
+[00:04:40] Ravi Deshmukh: I will try. It is many files.
+[00:04:46] Anjali Rao: Even one week would help.
+[00:04:50] Ravi Deshmukh: Okay I will see.
+
+[00:05:12] Anjali Rao: The double assignment thing you mentioned last time — how does it actually happen?
+[00:05:20] Ravi Deshmukh: Because I promise at night on WhatsApp, then in the morning I forget and give to someone else.
+[00:05:30] Ravi Deshmukh: Or I write driver name in the sheet, then driver calls and says he is not coming today, then I give to another driver but I forget to change the sheet.
+[00:05:44] Dev Menon: So the sheet says one name, reality is another.
+[00:05:49] Ravi Deshmukh: Yes. Then Sameer's billing also goes wrong because payout is per driver.
+[00:05:58] Anjali Rao: Drivers are paid per delivery?
+[00:06:02] Ravi Deshmukh: Per delivery, yes. So if the sheet is wrong, wrong person gets paid.
+[00:06:10] Priya Nair: That has caused fights.
+[00:06:14] Ravi Deshmukh: Two months back one driver left because of this.
+[00:06:20] Anjali Rao: Okay, that's a bigger consequence than I understood last time.
+
+[00:10:31] Ravi Deshmukh: Firoz has come. Firoz, sit, they will ask you some questions.
+[00:10:39] Firoz Shaikh: Hello sir. Hello madam.
+[00:10:43] Anjali Rao: Hi Firoz, thanks for joining. Very simple questions. How do you find out what you're delivering each day?
+[00:10:53] Firoz Shaikh: Ravi bhai tells. I call him in the morning or he sends on WhatsApp.
+[00:11:01] Anjali Rao: And if you don't get through to him?
+[00:11:05] Firoz Shaikh: Then I wait. Sometimes I wait one hour at the hub.
+[00:11:12] Anjali Rao: Doing nothing?
+[00:11:15] Firoz Shaikh: Yes. Line is busy, so many people calling him.
+[00:11:22] Dev Menon: Firoz, what's the most irritating part of the day for you?
+[00:11:28] Firoz Shaikh: Address, sir. Address is wrong many times. Or building name is there but flat number is not there.
+[00:11:39] Dev Menon: Then what?
+[00:11:42] Firoz Shaikh: Then I call the customer. If not picking, I call Ravi bhai. He also calls customer.
+[00:11:52] Firoz Shaikh: Sometimes twenty minutes goes for one delivery like this.
+[00:12:00] Anjali Rao: How many deliveries do you do in a day?
+[00:12:05] Firoz Shaikh: Ten, twelve. Good day fifteen.
+[00:12:11] Anjali Rao: And you send a photo when you deliver?
+[00:12:16] Firoz Shaikh: Yes, photo on WhatsApp to Ravi bhai.
+[00:12:21] Dev Menon: Does that ever fail? Bad network?
+[00:12:26] Firoz Shaikh: In basement parking, network goes. Then I send after coming out. Sometimes I forget.
+[00:12:36] Dev Menon: And then?
+[00:12:39] Firoz Shaikh: Then Ravi bhai calls and asks did you deliver or not.
+[00:12:46] Anjali Rao: Firoz, if there was an app on your phone showing your deliveries for the day, would you use it?
+[00:12:55] Firoz Shaikh: If it is easy, yes. Before there was one app, it was very confusing. Login, password, too much.
+[00:13:06] Anjali Rao: What language would you want it in?
+[00:13:11] Firoz Shaikh: Hindi is fine. Or Marathi. English also I can manage little bit but Hindi is better.
+[00:13:21] Dev Menon: Is your phone storage okay for an app?
+[00:13:26] Firoz Shaikh: My phone is old sir. Storage is always full.
+[00:13:32] Dev Menon: Would you use it if it opened in the browser? Like a website, no install?
+[00:13:39] Firoz Shaikh: Website is okay. Like a link?
+[00:13:44] Dev Menon: Like a link, yes.
+[00:13:47] Firoz Shaikh: That is better than install.
+[00:13:52] Anjali Rao: Very useful, Firoz. Thank you.
+[00:13:57] Firoz Shaikh: Thank you madam. I can go?
+[00:14:01] Ravi Deshmukh: Yes yes, go.
+
+[00:14:20] Priya Nair: So you see, drivers are one thing. But customer app is what will differentiate us in the market.
+[00:14:31] Anjali Rao: I hear you. Can I put a position to you and you tell me if it's wrong?
+[00:14:38] Priya Nair: Go ahead.
+[00:14:41] Anjali Rao: Almost every problem you've described — the calls, the double assignment, the missing proof, the wrong payouts, Sameer's invoicing — comes from the same root. Order status only exists in Ravi's head and his phone.
+[00:15:00] Priya Nair: Hmm.
+[00:15:03] Anjali Rao: If the status existed somewhere real, the customer page is then almost free. But the customer page on its own doesn't fix any of the others.
+[00:15:16] Ravi Deshmukh: This is correct. Status is the thing.
+[00:15:22] Priya Nair: Okay. But customer page also in the first version?
+[00:15:28] Anjali Rao: If the status is being captured, showing it to a customer is a small addition. Yes.
+[00:15:36] Priya Nair: Then fine.
+
+[00:16:04] Dev Menon: Two technical things. Ravi, the Excel — can you send us a screenshot of it? Just so we see the actual columns.
+[00:16:14] Ravi Deshmukh: I will send on WhatsApp.
+[00:16:19] Dev Menon: And is there any system on the brand side we'd need to connect to?
+[00:16:26] Ravi Deshmukh: BlueCart has a portal. I don't have login. Priya has.
+[00:16:33] Priya Nair: I have login but I don't know if they give any connection thing.
+[00:16:40] Dev Menon: An API. We'd have to ask them.
+[00:16:45] Priya Nair: We can ask. It will take time, they are slow.
+[00:16:51] Dev Menon: Understood, we'll assume manual for now.
+
+[00:17:30] Anjali Rao: One more — do you have any deadline or commitment on delivery time? Same day, next day?
+[00:17:40] Priya Nair: Brands say next day.
+[00:17:44] Ravi Deshmukh: But actual is sometimes two days, three days if address problem.
+[00:17:52] Anjali Rao: Is there a penalty in the contract for late delivery?
+[00:17:58] Priya Nair: I think there is something. I have to check the contract.
+[00:18:05] Anjali Rao: Please do, that would change what we prioritise.
+[00:18:11] Priya Nair: I'll look and tell you.
+
+[00:19:15] Anjali Rao: Alright. Next time we'll bring back what we understood and something you can click.
+[00:19:23] Priya Nair: How soon?
+[00:19:26] Anjali Rao: Ten days.
+[00:19:29] Priya Nair: Okay good.
+[00:19:33] Ravi Deshmukh: One request. Whatever you make, don't make it complicated for drivers. That is where it will fail.
+[00:19:43] Anjali Rao: That's the most useful sentence of the call. Noted.
+[00:19:50] Ravi Deshmukh: (laughs) Okay.
+
+[Call ended 00:20:02. Remaining time was informal chat about the BlueCart renewal.]

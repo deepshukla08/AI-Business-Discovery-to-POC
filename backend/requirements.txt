@@ -1,0 +1,19 @@
+# web
+fastapi
+uvicorn[standard]
+python-multipart
+pydantic
+
+# agent pipeline
+langgraph
+langgraph-checkpoint-sqlite
+google-genai
+
+# ingest
+pypdf
+
+# used by fastapi's TestClient in the test_*.py checks
+httpx
+
+# config
+python-dotenv
