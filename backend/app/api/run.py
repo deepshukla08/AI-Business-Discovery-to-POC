@@ -2,6 +2,9 @@
 
 Server-sent events so the UI shows the state as it is built, and the same story printed
 to the server console so you can watch it there too.
+
+The run stops at `ask_client` and waits. The browser posts answers to /run/answers, which
+resumes the same checkpointed run rather than starting a new one.
 """
 
 import json
@@ -12,6 +15,8 @@ from collections.abc import Iterator
 
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import FileResponse, StreamingResponse
+from langgraph.types import Command
+from pydantic import BaseModel
 
 from app.api.deps import get_project_or_404
 from app.graph.pipeline import pipeline, unfinished
@@ -21,12 +26,53 @@ from app.tools import ingest
 router = APIRouter(prefix="/api/projects/{pid}", tags=["run"])
 
 
+class Reply(BaseModel):
+    question: str
+    answer: str
+
+
+class Answers(BaseModel):
+    answers: list[Reply] = []
+
+
 def sse(payload: dict) -> str:
     return f"data: {json.dumps(payload)}\n\n"
 
 
-def events(project: dict) -> Iterator[str]:
+def collect(pid: str) -> dict:
+    """Build the run result from the checkpoint.
+
+    Deliberately not from what the event handler accumulated: on a resumed run the nodes
+    that already finished emit nothing, so that copy would be missing everything the
+    previous attempt produced.
+    """
+    final = pipeline.get_state({"configurable": {"thread_id": pid}}).values
+
+    def dump(key: str):
+        value = final.get(key)
+        if value is None:
+            return None
+        return [v.model_dump() for v in value] if isinstance(value, list) else value.model_dump()
+
+    html_faults = final.get("prototype_faults")
+    return {
+        "chunks": dump("chunks") or [],
+        "findings": dump("findings") or [],
+        "insights": dump("insights") or [],
+        "brief": dump("brief"),
+        "gaps": dump("gaps") or [],
+        "answers": dump("answers") or [],
+        "redesign": dump("redesign"),
+        "outline": dump("outline"),
+        # the HTML itself lives in prototype.html; run.json only records whether it is usable
+        "prototype": bool(final.get("prototype")) and not html_faults,
+        "prototype_faults": html_faults or [],
+    }
+
+
+def events(project: dict, resume_with: list[dict] | None = None) -> Iterator[str]:
     pid = project["id"]
+    config = {"configurable": {"thread_id": pid}}
     started = time.monotonic()
 
     def trace(line: str) -> None:
@@ -37,64 +83,81 @@ def events(project: dict) -> Iterator[str]:
         trace(line)
         return sse(payload)
 
-    # a previous run that died mid-flight left its finished nodes on disk
-    pending = unfinished(pid)
-    trace(f"── run start · {project['name']} · {len(project['inputs'])} inputs " + "─" * 20)
-    yield sse({"event": "start", "inputs": len(project["inputs"]), "resuming": list(pending)})
+    if resume_with is not None:
+        trace(f"── resume with {len(resume_with)} answers " + "─" * 30)
+        yield sse({"event": "start", "inputs": len(project["inputs"]), "resuming": ["answers"]})
+        start_from = Command(resume=resume_with)
+    else:
+        # a previous run that died mid-flight left its finished nodes on disk
+        pending = unfinished(pid)
+        trace(f"── run start · {project['name']} · {len(project['inputs'])} inputs " + "─" * 18)
+        yield sse({"event": "start", "inputs": len(project["inputs"]), "resuming": list(pending)})
 
-    if pending:
-        trace(f"resume  picking up from {', '.join(pending)} — earlier nodes are cached")
-
-    chunks = []
-    for record in project["inputs"]:
-        parsed, skipped = ingest.parse_input(pid, record)
-        if skipped:
-            yield emit(
-                {"event": "skipped", "label": record["label"], "reason": skipped},
-                f"skip  {record['label']} — {skipped}",
-            )
+        if pending:
+            trace(f"resume  picking up from {', '.join(pending)} — earlier nodes are cached")
+            start_from = None
         else:
-            chunks.extend(parsed)
+            chunks = []
+            for record in project["inputs"]:
+                parsed, skipped = ingest.parse_input(pid, record)
+                if skipped:
+                    yield emit(
+                        {"event": "skipped", "label": record["label"], "reason": skipped},
+                        f"skip  {record['label']} — {skipped}",
+                    )
+                else:
+                    chunks.extend(parsed)
+                    yield emit(
+                        {
+                            "event": "parsed",
+                            "label": record["label"],
+                            "kind": record["kind"],
+                            "chunks": len(parsed),
+                        },
+                        f"parse {record['label']} ({record['kind']}) → {len(parsed)} chunks"
+                        f"  [{parsed[0].id}…{parsed[-1].id}]",
+                    )
+
+            if not chunks:
+                yield emit(
+                    {"event": "error", "message": "nothing could be parsed yet"},
+                    "nothing to parse",
+                )
+                return
+
+            sources = len({c.source_id for c in chunks})
             yield emit(
                 {
-                    "event": "parsed",
-                    "label": record["label"],
-                    "kind": record["kind"],
-                    "chunks": len(parsed),
+                    "event": "node_start",
+                    "node": "extract",
+                    "chunks": len(chunks),
+                    "sources": sources,
                 },
-                f"parse {record['label']} ({record['kind']}) → {len(parsed)} chunks"
-                f"  [{parsed[0].id}…{parsed[-1].id}]",
+                f"node  extract x{sources} in parallel ← chunks={len(chunks)}",
             )
+            start_from = {"project_id": pid, "chunks": chunks, "findings": []}
 
-    if not chunks:
-        yield emit({"event": "error", "message": "nothing could be parsed yet"}, "nothing to parse")
-        return
-
-    sources = len({c.source_id for c in chunks})
-    yield emit(
-        {"event": "node_start", "node": "extract", "chunks": len(chunks), "sources": sources},
-        f"node  extract x{sources} in parallel ← state: chunks={len(chunks)} findings=0",
-    )
-
-    findings, insights, gaps, faults = [], [], [], []
-    brief = proposal = outline = None
-    prototype = False
-
+    total_findings = 0
     try:
         # .stream() hands back each task as it finishes, so sources report one by one
         # instead of the whole thing landing at the end
-        # Passing None resumes a checkpointed run from where it stopped; passing state
-        # starts a fresh one. thread_id is the project, so one run per project at a time.
-        config = {"configurable": {"thread_id": pid}}
-        start_from = None if pending else {"project_id": pid, "chunks": chunks, "findings": []}
-
         for update in pipeline.stream(start_from, config):
+            # the graph paused at ask_client; hand the questions over and stop the stream
+            if "__interrupt__" in update:
+                paused = update["__interrupt__"][0].value
+                partial = collect(pid)
+                store.save_run(pid, partial)
+                yield emit(
+                    {"event": "awaiting", **partial},
+                    f"pause  waiting on {len(paused.get('gaps', []))} answers "
+                    f"— nothing below this point is decided yet",
+                )
+                return
+
             for node, produced in update.items():
                 if node == "extract":
-                    # each update carries only that task's findings; operator.add merges
-                    # them into graph state, but we accumulate our own copy for the UI
                     batch = produced.get("findings", [])
-                    findings.extend(batch)
+                    total_findings += len(batch)
                     source = batch[0].source_id if batch else "?"
                     yield emit(
                         {
@@ -102,13 +165,11 @@ def events(project: dict) -> Iterator[str]:
                             "node": node,
                             "source": source,
                             "findings": len(batch),
-                            "total": len(findings),
+                            "total": total_findings,
                         },
                         f"node  extract({source}) → {len(batch)} findings"
-                        f"  {dict(Counter(f.type for f in batch))}  ·  total {len(findings)}",
+                        f"  {dict(Counter(f.type for f in batch))}",
                     )
-                    for finding in batch:
-                        trace(f"        {finding.type:11} {finding.text[:86]}")
 
                 elif node == "merge":
                     insights = produced["insights"]
@@ -117,11 +178,11 @@ def events(project: dict) -> Iterator[str]:
                         {
                             "event": "merged",
                             "insights": len(insights),
-                            "collapsed": len(findings) - len(insights),
+                            "collapsed": max(total_findings - len(insights), 0),
                             "corroborated": corroborated,
                         },
-                        f"node  merge → {len(findings)} findings collapsed to {len(insights)}"
-                        f" insights, {corroborated} backed by more than one source",
+                        f"node  merge → {len(insights)} insights, "
+                        f"{corroborated} backed by more than one source",
                     )
 
                 elif node == "synthesize":
@@ -133,8 +194,8 @@ def events(project: dict) -> Iterator[str]:
                             "steps": len(brief.current_process),
                             "requirements": len(brief.requirements),
                         },
-                        f"node  synthesize → brief: {len(brief.current_process)} process steps, "
-                        f"{len(brief.pain_points)} pains, {len(brief.requirements)} requirements",
+                        f"node  synthesize → {len(brief.current_process)} process steps, "
+                        f"{len(brief.pain_points)} pains",
                     )
                     trace(f"        GOAL  {brief.goal.text[:150]}")
 
@@ -146,11 +207,17 @@ def events(project: dict) -> Iterator[str]:
                             "gaps": len(gaps),
                             "kinds": dict(Counter(g.kind for g in gaps)),
                         },
-                        f"node  find_gaps → {len(gaps)} open questions "
-                        f"{dict(Counter(g.kind for g in gaps))}",
+                        f"node  find_gaps → {len(gaps)} open questions",
                     )
                     for gap in gaps:
                         trace(f"        {gap.kind:15} {gap.question[:84]}")
+
+                elif node == "ask_client":
+                    answers = produced.get("answers", [])
+                    yield emit(
+                        {"event": "answered", "answers": len(answers)},
+                        f"node  ask_client → {len(answers)} answered, continuing",
+                    )
 
                 elif node == "redesign":
                     proposal = produced["redesign"]
@@ -162,8 +229,7 @@ def events(project: dict) -> Iterator[str]:
                             "changes": dict(changes),
                             "not_solved": len(proposal.not_solved),
                         },
-                        f"node  redesign → {len(proposal.to_be)} steps {dict(changes)}, "
-                        f"{len(proposal.not_solved)} pains left unsolved",
+                        f"node  redesign → {len(proposal.to_be)} steps {dict(changes)}",
                     )
                     trace(f"        {proposal.summary[:150]}")
 
@@ -177,18 +243,21 @@ def events(project: dict) -> Iterator[str]:
                             "features": len(outline.features),
                             "screens": len(outline.screens),
                         },
-                        f"node  outline → '{outline.app_name}': {len(outline.roles)} roles, "
-                        f"{len(outline.features)} features, {len(outline.screens)} screens",
+                        f"node  outline → '{outline.app_name}': {len(outline.screens)} screens",
                     )
 
                 elif node == "prototype":
                     html = produced["prototype"]
                     faults = produced["prototype_faults"]
-                    prototype = not faults
-                    if prototype:
+                    if not faults:
                         store.save_prototype(pid, html)
                     yield emit(
-                        {"event": "prototype", "ok": prototype, "bytes": len(html), "faults": faults},
+                        {
+                            "event": "prototype",
+                            "ok": not faults,
+                            "bytes": len(html),
+                            "faults": faults,
+                        },
                         f"node  prototype → {len(html):,} bytes"
                         + (f"  REJECTED: {'; '.join(faults)}" if faults else "  looks usable"),
                     )
@@ -201,41 +270,32 @@ def events(project: dict) -> Iterator[str]:
         )
         return
 
-    # Read the finished state from the checkpoint rather than from what we accumulated:
-    # on a resumed run the already-completed nodes emit no events, so the local copies
-    # would be missing everything the previous attempt produced.
-    final = pipeline.get_state(config).values
-
-    def dump(key: str):
-        value = final.get(key)
-        if value is None:
-            return None
-        return [v.model_dump() for v in value] if isinstance(value, list) else value.model_dump()
-
-    result = {
-        "chunks": dump("chunks") or [],
-        "findings": dump("findings") or [],
-        "insights": dump("insights") or [],
-        "brief": dump("brief"),
-        "gaps": dump("gaps") or [],
-        "redesign": dump("redesign"),
-        "outline": dump("outline"),
-        # the HTML itself lives in prototype.html; run.json only records whether it is usable
-        "prototype": prototype or bool(final.get("prototype")) and not final.get("prototype_faults"),
-        "prototype_faults": faults or final.get("prototype_faults", []),
-    }
+    result = collect(pid)
     store.save_run(pid, result)
     trace(f"── run done · saved to data/{pid}/run.json " + "─" * 24)
     yield sse({"event": "done", **result})
 
 
-@router.post("/run")
-def run_discovery(project: dict = Depends(get_project_or_404)):
+def stream(project: dict, resume_with: list[dict] | None = None) -> StreamingResponse:
     return StreamingResponse(
-        events(project),
+        events(project, resume_with),
         media_type="text/event-stream",
         headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
     )
+
+
+@router.post("/run")
+def run_discovery(project: dict = Depends(get_project_or_404)):
+    return stream(project)
+
+
+@router.post("/run/answers")
+def answer_and_continue(body: Answers, project: dict = Depends(get_project_or_404)):
+    """Resume a paused run. An empty list means 'proceed without answers' — a deliberate
+    choice by the consultant, which is different from never having been asked."""
+    if "ask_client" not in unfinished(project["id"]):
+        raise HTTPException(409, "this run is not waiting for answers")
+    return stream(project, [reply.model_dump() for reply in body.answers])
 
 
 @router.get("/run")
@@ -243,6 +303,7 @@ def last_run(project: dict = Depends(get_project_or_404)):
     result = store.load_run(project["id"])
     if not result:
         raise HTTPException(404, "no run yet")
+    result["awaiting"] = "ask_client" in unfinished(project["id"])
     return result
 
 

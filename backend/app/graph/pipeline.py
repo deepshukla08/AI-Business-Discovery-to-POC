@@ -12,6 +12,9 @@
                      │
                   find_gaps       what the client never told us
                      │
+                 ask_client   ⏸  STOPS HERE. Everything below is a design decision, and
+                     │            making those on top of unanswered questions is how you
+                     │            end up rebuilding. Resumes with the answers in state.
                   redesign        a simpler way of working
                      │
                    outline        features, roles, screens, flow
@@ -38,6 +41,7 @@ from app.config import DATA_DIR
 from app.schemas import discovery
 
 from app.agents import (
+    ask_client,
     extractor,
     gap_finder,
     merger,
@@ -71,6 +75,7 @@ builder.add_node("extract", extractor.run)
 builder.add_node("merge", merger.run)
 builder.add_node("synthesize", synthesizer.run)
 builder.add_node("find_gaps", gap_finder.run)
+builder.add_node("ask_client", ask_client.run)
 builder.add_node("redesign", redesigner.run)
 builder.add_node("outline", outliner.run)
 builder.add_node("prototype", prototyper.run)
@@ -79,7 +84,8 @@ builder.add_conditional_edges(START, fan_out, ["extract"])
 builder.add_edge("extract", "merge")
 builder.add_edge("merge", "synthesize")
 builder.add_edge("synthesize", "find_gaps")
-builder.add_edge("find_gaps", "redesign")
+builder.add_edge("find_gaps", "ask_client")
+builder.add_edge("ask_client", "redesign")
 builder.add_edge("redesign", "outline")
 builder.add_edge("outline", "prototype")
 builder.add_edge("prototype", END)

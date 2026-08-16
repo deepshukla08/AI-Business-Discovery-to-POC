@@ -41,7 +41,14 @@ Every `why` names a consequence: what stops happening, or what becomes impossibl
 
 {{BRIEF}}
 
-## Open questions (things we do NOT know)
+## Answers the client has since given
+
+These came back from the client after the brief was written. They are newer and more reliable
+than anything in the evidence — where they contradict the brief, they win.
+
+{{ANSWERS}}
+
+## Still open (things we do NOT know)
 
 Design so these can be answered later without tearing the proposal up. Do not silently assume
 answers to them.

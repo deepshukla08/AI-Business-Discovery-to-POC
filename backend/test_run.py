@@ -14,7 +14,7 @@ from fastapi.testclient import TestClient
 from app.main import app
 from app.storage import store
 
-SAMPLE = Path(__file__).resolve().parent.parent / "sample_client"
+SAMPLE = Path(__file__).resolve().parent.parent / "samples" / "zippo"
 client = TestClient(app)
 
 
@@ -49,7 +49,9 @@ def main() -> None:
 
         kinds = [e["event"] for e in events]
         assert kinds[0] == "start", kinds
-        assert kinds[-1] == "done", kinds[-1]
+        # the run stops at ask_client and hands back the open questions — it does not
+        # design anything until a human has answered or waved it through
+        assert kinds[-1] == "awaiting", kinds[-1]
 
         # fan-out: one extractor per source, each reporting separately
         node_events = [e for e in events if e["event"] == "node_done"]
@@ -98,14 +100,16 @@ def main() -> None:
         assert client.get(f"/api/projects/{pid}/files/{image_chunk['media']}").status_code == 200
         assert client.get(f"/api/projects/{pid}/files/../project.json").status_code in (400, 404)
 
-        # the run survives a page refresh
+        # the partial run survives a page refresh, and says it is still waiting
         saved = client.get(f"/api/projects/{pid}/run").json()
         assert len(saved["findings"]) == len(done["findings"])
-        assert client.get(f"/api/projects/{pid}").json()["status"] == "analysed"
+        assert saved["awaiting"] is True, "the UI would not know to show the questions"
+        assert saved["brief"], "the brief should be readable while paused"
+        assert not saved["redesign"], "nothing may be designed before the human answers"
 
         print(
             f"run check passed — {len(done['chunks'])} chunks, "
-            f"{len(done['findings'])} findings, 1 input skipped honestly"
+            f"{len(done['findings'])} findings, paused on {len(done['gaps'])} questions"
         )
     finally:
         shutil.rmtree(store.project_dir(pid), ignore_errors=True)

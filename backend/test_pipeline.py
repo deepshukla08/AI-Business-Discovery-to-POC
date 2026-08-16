@@ -4,6 +4,8 @@ Free. The merger has no model call at all, and the graph check stubs the model o
 this proves the plumbing, not the prompts.
 """
 
+from langgraph.types import Command
+
 from app.agents import llm
 from app.schemas.discovery import (
     Brief,
@@ -132,7 +134,10 @@ def check_graph_wiring():
         ]
         # every run needs a thread now that the graph is checkpointed
         config = {"configurable": {"thread_id": "wiring-check"}}
-        state = pipeline.invoke({"project_id": "check", "chunks": chunks, "findings": []}, config)
+        pipeline.invoke({"project_id": "check", "chunks": chunks, "findings": []}, config)
+        # the graph stops at ask_client; this check is about the nodes, so wave it through
+        # with no answers — which is itself a valid choice a consultant can make
+        state = pipeline.invoke(Command(resume=[]), config)
     finally:
         llm.generate_json = original
         llm.generate_text = original_text
@@ -161,10 +166,71 @@ def check_graph_wiring():
     # per-agent thinking levels actually reach the model layer
     assert "LOW" in calls and "MEDIUM" in calls and "HIGH" in calls, calls
 
+    nodes = [n for n in pipeline.get_graph().nodes if not n.startswith("__")]
     print(
-        f"graph       6 nodes ran, {len(calls)} model calls, "
+        f"graph       {len(nodes)} nodes wired, {len(calls)} model calls, "
         f"thinking levels {sorted(set(calls))}"
     )
+
+
+def check_human_in_the_loop():
+    """The graph must stop before designing anything, and carry the answers forward."""
+    from langgraph.types import Command
+
+    from app.graph.pipeline import pipeline, unfinished
+
+    thread = "hitl-check"
+    config = {"configurable": {"thread_id": thread}}
+    seen_answers = []
+
+    def stub(prompt, schema, **kwargs):
+        if schema == list[Finding]:
+            return [Finding(type="pain", text="phones ring all night", cites=["src_000"])]
+        if schema is Brief:
+            return Brief(
+                goal=Cited(text="Stop the phone ringing", cites=["src_000"]),
+                current_process=[], pain_points=[], requirements=[],
+                constraints=[], stated_wants=[],
+            )
+        if schema == list[Gap]:
+            return [Gap(kind="unanswered", question="How many orders per day?",
+                        why_it_matters="Sizing", cites=["src_000"])]
+        if schema is Redesign:
+            # the proposal must be able to see what the client came back with
+            seen_answers.append("A: 250 on a normal Monday" in prompt)
+            return Redesign(summary="s", to_be=[], wins=[], not_solved=[])
+        return Outline(app_name="X", one_liner="y", roles=[], features=[], screens=[], flow=[])
+
+    original, original_text = llm.generate_json, llm.generate_text
+    llm.generate_json = stub
+    llm.generate_text = lambda p, **k: "<html><body><script>1</script>" + "x" * 900 + "</body></html>"
+    try:
+        chunks = [Chunk(id="src_000", source_id="src.txt", locator="1", text="one")]
+        for _ in pipeline.stream({"project_id": thread, "chunks": chunks, "findings": []}, config):
+            pass
+
+        # it stopped, and stopped in the right place — before anything was designed
+        assert unfinished(thread) == ("ask_client",), unfinished(thread)
+        paused = pipeline.get_state(config).values
+        assert paused.get("brief"), "the brief should exist before the pause"
+        assert "redesign" not in paused, "nothing may be designed before the human answers"
+
+        for _ in pipeline.stream(
+            Command(resume=[{"question": "How many orders per day?", "answer": "250 on a normal Monday"}]),
+            config,
+        ):
+            pass
+
+        done = pipeline.get_state(config).values
+        assert unfinished(thread) == (), unfinished(thread)
+        assert [a.answer for a in done["answers"]] == ["250 on a normal Monday"]
+        assert done.get("redesign"), "the run did not continue past the pause"
+        assert seen_answers == [True], "the redesigner never saw the client's answer"
+
+        print("human loop  paused before designing, resumed with the answer in the prompt")
+    finally:
+        llm.generate_json, llm.generate_text = original, original_text
+        pipeline.checkpointer.delete_thread(thread)
 
 
 def check_resume():
@@ -215,5 +281,6 @@ def check_resume():
 if __name__ == "__main__":
     check_merger()
     check_graph_wiring()
+    check_human_in_the_loop()
     check_resume()
     print("\npipeline ok (no quota spent)")

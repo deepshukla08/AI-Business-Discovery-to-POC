@@ -4,20 +4,33 @@ from pathlib import Path
 
 from app.agents import citations, llm
 from app.graph.state import DiscoveryState
-from app.schemas.discovery import Brief, Gap, Redesign
+from app.schemas.discovery import Answer, Brief, Gap, Redesign
 
 PROMPT = (Path(__file__).parent / "prompts" / "redesigner.md").read_text(encoding="utf-8")
 
 
-def render_gaps(gaps: list[Gap]) -> str:
-    if not gaps:
-        return "(none identified)"
-    return "\n".join(f"- [{g.kind}] {g.question} — {g.why_it_matters}" for g in gaps)
+def render_gaps(gaps: list[Gap], answered: set[str]) -> str:
+    open_gaps = [g for g in gaps if g.question not in answered]
+    if not open_gaps:
+        return "(none — everything raised has been answered)"
+    return "\n".join(f"- [{g.kind}] {g.question} — {g.why_it_matters}" for g in open_gaps)
 
 
-def redesign(brief: Brief, gaps: list[Gap], valid_ids: set[str]) -> Redesign:
-    prompt = PROMPT.replace("{{BRIEF}}", brief.model_dump_json(indent=2)).replace(
-        "{{GAPS}}", render_gaps(gaps)
+def render_answers(answers: list[Answer]) -> str:
+    if not answers:
+        return "(none — the client has not come back on any of the open questions)"
+    return "\n".join(f"- Q: {a.question}\n  A: {a.answer}" for a in answers)
+
+
+def redesign(
+    brief: Brief, gaps: list[Gap], answers: list[Answer], valid_ids: set[str]
+) -> Redesign:
+    answered = {a.question for a in answers}
+    prompt = (
+        PROMPT.replace("{{BRIEF}}", brief.model_dump_json(indent=2))
+        .replace("{{ANSWERS}}", render_answers(answers))
+        # a question the client has answered is no longer an unknown to design around
+        .replace("{{GAPS}}", render_gaps(gaps, answered))
     )
     # MEDIUM: real design judgment, but every input is already established — it is
     # rearranging known facts, not reasoning about what is missing.
@@ -34,4 +47,8 @@ def redesign(brief: Brief, gaps: list[Gap], valid_ids: set[str]) -> Redesign:
 def run(state: DiscoveryState) -> dict:
     """LangGraph node."""
     valid_ids = {chunk.id for chunk in state["chunks"]}
-    return {"redesign": redesign(state["brief"], state.get("gaps", []), valid_ids)}
+    return {
+        "redesign": redesign(
+            state["brief"], state.get("gaps", []), state.get("answers", []), valid_ids
+        )
+    }

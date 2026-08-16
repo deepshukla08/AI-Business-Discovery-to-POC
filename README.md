@@ -53,39 +53,44 @@ npm install                       # first time only
 npm run dev
 ```
 
-Open http://localhost:3000, create a project, drag in everything from `sample_client/`, press
+Open http://localhost:3000, create a project, drag in everything from `samples/zippo/`, press
 **Run discovery**.
 
 A Gemini API key comes from https://aistudio.google.com/apikey — the free tier is enough.
 
 ---
 
-## Try it on the sample client
+## Try it on a sample client
 
-`sample_client/` is a fictional engagement: **Zippo Logistics**, a Mumbai last-mile delivery
-firm running 40 drivers off one spreadsheet and one man's phone.
+Two fictional engagements, in deliberately unalike businesses — because a pipeline that only
+works on logistics doesn't work.
 
-| File | What it is |
-|---|---|
-| `call_1_kickoff.txt` | 41-minute meeting transcript |
-| `call_2_followup.txt` | 27-minute follow-up, including a delivery driver |
-| `whatsapp_export_zippo.txt` | 85-message WhatsApp group export |
-| `current_process.pdf` | the client's 2022 SOP — officially accurate, actually stale |
-| `screenshot_dispatch_sheet.png` | screenshot of the live dispatch spreadsheet |
+| | **`samples/zippo/`** | **`samples/smilecraft/`** |
+|---|---|---|
+| Business | Mumbai last-mile delivery, 40 drivers | Three dental clinics in Pune |
+| Shape of the pain | physical, time-critical, field staff | appointment-based, desk-bound, records-heavy |
+| Runs on | one spreadsheet and one man's phone | practice software at two branches, a paper diary at the third |
+| Files | 2 transcripts · WhatsApp · SOP PDF · spreadsheet screenshot | 2 transcripts · WhatsApp · policy PDF · appointment-book screenshot |
+| Chunks | 378 | 263 |
 
-These are a **graded test fixture, not decoration.** Five things are deliberately buried in
-them, and `sample_client/TRAPS.md` is the answer key:
+Both are **graded test fixtures, not decoration.** Each carries the same five planted failures,
+and each folder's `TRAPS.md` is the answer key:
 
-| # | Planted | Where | What it tests |
+| # | The trap | Zippo | SmileCraft |
 |---|---|---|---|
-| 1 | A question asked twice, answered "depends" twice | WhatsApp 06/03 and 11/03 | Does it invent a number, or admit it doesn't know? |
-| 2 | The SOP says planning happens the previous evening; Ravi says 5:45am | PDF §3.1 vs call 2 | Does it flag the conflict, or silently pick one? |
-| 3 | A requirement stated once, in passing, and dismissed | call 1 @31:02 | Does it read everything, or amplify what repeats? |
-| 4 | A `Driver2` column and six spellings of "delivered" | the screenshot only | Does vision contribute anything text can't? |
-| 5 | The client asks for a customer app; the evidence says the problem is elsewhere | everywhere | Want vs need |
+| 1 | A question asked and never answered | daily order volume — "depends", twice | no-show rate — "depends on the day", twice |
+| 2 | A document that contradicts reality | SOP: planning happens the evening before; Ravi does it at 5:45am | policy: double booking "not permitted"; the screenshot shows two |
+| 3 | A requirement stated once and dismissed | accounts needs a daily CSV by 8pm | insurance pre-auth dies after 24 hours |
+| 4 | Evidence only in the screenshot | a `Driver2` column, six spellings of "delivered" | two patients in one slot, `Conf` stuck on TBC, root canal written four ways, phone numbers missing |
+| 5 | The stated want isn't the real need | asks for a customer tracking app | asks for a patient booking app |
 
-Regenerate the PDF and screenshot with
-`pip install fpdf2 pillow && python sample_client/source/make_fixtures.py`.
+The point of the second one is that the *right answer looks nothing like the first*. Zippo's
+proposal is a dispatch board; SmileCraft's should be about confirmations, recalls and one patient
+record — and if the pipeline produces a dispatch board for a dental clinic, it is pattern-matching
+rather than reading.
+
+Regenerate a sample's PDF and screenshot with
+`pip install fpdf2 pillow && python samples/<name>/source/make_fixtures.py`.
 
 ---
 
@@ -115,6 +120,8 @@ Regenerate the PDF and screenshot with
     │
  find_gaps           unanswered · contradiction · never_discussed
     │
+ ask_client       ⏸  STOPS. Everything below is a design decision.
+    │               The consultant answers what they can, then it continues.
  redesign            as-is vs to-be, every step tagged removed/automated/simplified/new
     │
  outline             app name, roles, features, screens, end-to-end flow
@@ -177,8 +184,14 @@ a browser refresh, a crash, a dropped connection — **resumes from the last com
 instead of repaying the five extract calls. Press Run again and the log says
 `resuming from synthesize — earlier work is cached`.
 
-The same machinery gives the next feature away for free: `interrupt()` after gap analysis, so a
-consultant answers the open questions before a proposal gets built on guesses.
+The same machinery gives the pause: `ask_client` calls `interrupt()`, which checkpoints the whole
+run and returns. The browser gets the open questions, the consultant answers what they can, and
+`POST /run/answers` resumes with `Command(resume=...)` — nothing is replayed, it simply carries
+on with the answers in state, and the redesigner is told the client's answers outrank the
+evidence where they disagree.
+
+Answering nothing is a supported choice, and a different one from never having been asked: the
+unanswered questions stay on the list and visible in the brief.
 
 Two details that are easy to get wrong:
 
@@ -306,8 +319,9 @@ All five things the assignment asks for are built and verified on real input:
 | 4. Suggest a better process | redesign: as-is vs to-be, per-step change tags, and what it does *not* fix |
 | 5. Create a solution outline + basic POC | outline: roles, features, screens, flow · generated clickable HTML |
 
-Plus: runs are checkpointed to SQLite after every node, so a killed run resumes instead of
-starting over.
+Plus two things the assignment didn't ask for:
 
-Next: the human-in-the-loop pause — `interrupt()` after gap analysis, so the consultant answers
-the open questions before a proposal is built on guesses.
+- **Checkpointing** — runs are written to SQLite after every node, so a killed run resumes
+  instead of starting over.
+- **A human in the loop** — the graph stops after gap analysis and will not design anything
+  until the consultant has answered, or explicitly decided not to.

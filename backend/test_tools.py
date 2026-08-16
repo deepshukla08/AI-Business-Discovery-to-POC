@@ -8,7 +8,7 @@ from pathlib import Path
 
 from app.tools import pdf, plain, transcript, whatsapp
 
-SAMPLE = Path(__file__).resolve().parent.parent / "sample_client"
+SAMPLE = Path(__file__).resolve().parent.parent / "samples" / "zippo"
 
 
 def check_transcript():

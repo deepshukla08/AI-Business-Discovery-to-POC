@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { API } from "@/lib/api";
 import type { Outline } from "@/lib/types";
 
@@ -15,7 +14,6 @@ export default function PrototypeView({
   faults: string[];
   outline: Outline | null | undefined;
 }) {
-  const [wide, setWide] = useState(true);
   const url = `${API}/api/projects/${projectId}/prototype`;
 
   if (!ok) {
@@ -69,60 +67,37 @@ export default function PrototypeView({
   }
 
   return (
-    <div className="space-y-3">
-      <div className="flex flex-wrap items-center gap-2">
-        <div className="flex gap-1 rounded-lg border border-line p-1">
-          {(
-            [
-              [true, "Desktop"],
-              [false, "Phone"],
-            ] as [boolean, string][]
-          ).map(([value, label]) => (
-            <button
-              key={label}
-              onClick={() => setWide(value)}
-              className={`rounded px-2.5 py-1 text-xs transition ${
-                wide === value ? "bg-accent-soft text-ink" : "text-muted hover:text-ink"
-              }`}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-
-        <div className="flex-1" />
-
+    <div className="flex h-full flex-col gap-2">
+      <div className="flex shrink-0 items-center gap-2">
+        <p className="min-w-0 flex-1 truncate text-[11px] text-muted">
+          Throwaway by design — fake data, no backend, refreshing resets it.
+        </p>
         <a
           href={url}
           target="_blank"
           rel="noreferrer"
-          className="rounded-lg border border-line px-3 py-1.5 text-xs text-muted transition hover:border-ink hover:text-ink"
+          className="shrink-0 rounded-lg border border-line px-3 py-1.5 text-xs text-muted transition hover:border-ink hover:text-ink"
         >
           Open in new tab
         </a>
         <a
           href={url}
           download="prototype.html"
-          className="rounded-lg border border-line px-3 py-1.5 text-xs text-muted transition hover:border-ink hover:text-ink"
+          className="shrink-0 rounded-lg border border-line px-3 py-1.5 text-xs text-muted transition hover:border-ink hover:text-ink"
         >
           Download
         </a>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-line bg-white">
+      <div className="min-h-0 flex-1 overflow-hidden rounded-xl border border-line bg-white">
         <iframe
           src={url}
           title="Generated prototype"
           // model-written code: scripts may run, but with no access to this page or our API
           sandbox="allow-scripts"
-          className={`block h-[70vh] border-0 ${wide ? "w-full" : "mx-auto w-[390px]"}`}
+          className="block h-full w-full border-0"
         />
       </div>
-
-      <p className="text-[11px] text-muted">
-        Throwaway by design — fake data, no backend, refreshing resets it. Its job is to make
-        the client point at something and say &ldquo;but we also need…&rdquo;.
-      </p>
     </div>
   );
 }

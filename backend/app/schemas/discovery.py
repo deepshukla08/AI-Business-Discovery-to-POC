@@ -65,6 +65,13 @@ class Brief(BaseModel):
     )
 
 
+class Answer(BaseModel):
+    """What the consultant came back with after putting a gap to the client."""
+
+    question: str
+    answer: str
+
+
 ChangeKind = Literal["removed", "automated", "simplified", "new", "unchanged"]
 
 

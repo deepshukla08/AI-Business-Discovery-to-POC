@@ -1,0 +1,81 @@
+SmileCraft Dental — Discovery Call 2 (Front desk shadowing debrief)
+Date: 23 September 2024
+Duration: 21:44
+Participants: Kavita Rane (SmileCraft, Practice Manager), Prakash Iyer (SmileCraft, Front
+Desk — Baner branch), Anjali Rao (Consultant), Dev Menon (Consultant, Tech)
+Auto-generated transcript. Speaker labels may be imperfect.
+
+[00:00:09] Anjali Rao: Prakash, thank you for joining. You've been at Baner a long time.
+[00:00:16] Prakash Iyer: Twenty-two years madam. Before it was SmileCraft also I was there.
+[00:00:24] Anjali Rao: Can you walk me through your morning?
+[00:00:29] Prakash Iyer: I open at 9. I look at the diary, see who is coming.
+[00:00:37] Anjali Rao: Do you call them to confirm?
+[00:00:41] Prakash Iyer: No no. They know their appointment.
+[00:00:47] Dev Menon: Kavita, at Kothrud you said you confirm every morning.
+[00:00:53] Kavita Rane: Yes, at Kothrud and Viman Nagar we do.
+[00:00:59] Kavita Rane: Baner has never done it. I keep saying we should.
+[00:01:06] Prakash Iyer: My patients come. I know them.
+[00:01:12] Anjali Rao: Do you have a sense of how many don't come?
+[00:01:18] Prakash Iyer: Some don't come. It happens.
+[00:01:24] Anjali Rao: One in ten? One in five?
+[00:01:29] Prakash Iyer: Depends on the day madam.
+[00:01:34] Anjali Rao: Okay.
+
+[00:03:20] Dev Menon: When someone books, what do you write down?
+[00:03:26] Prakash Iyer: Name, phone, time, what treatment.
+[00:03:33] Dev Menon: Do you write the treatment in a standard way?
+[00:03:38] Prakash Iyer: I write what doctor tells. RCT, scaling, filling.
+[00:03:46] Kavita Rane: And in the software we have codes. So when I look at Baner's numbers I can't compare anything.
+[00:03:56] Dev Menon: Do the codes matter to anyone?
+[00:04:01] Kavita Rane: Sunil needs them for insurance. And Dr. Joshi wants to know which treatments make money.
+[00:04:10] Kavita Rane: Right now nobody can answer that for Baner.
+
+[00:06:05] Anjali Rao: Prakash, what's the most annoying part of your day?
+[00:06:12] Prakash Iyer: When two patients come at the same time and doctor is only one.
+[00:06:20] Anjali Rao: How does that happen?
+[00:06:24] Prakash Iyer: Sometimes I write two in one slot. If someone insists, I fit them.
+[00:06:33] Dev Menon: So the diary allows double booking.
+[00:06:38] Prakash Iyer: Paper allows everything sir.
+[00:06:43] Kavita Rane: (laughs) That's the problem in one sentence.
+[00:06:49] Dev Menon: Does the software stop it?
+[00:06:54] Kavita Rane: It warns you. But you can click past the warning.
+[00:07:01] Kavita Rane: We do it deliberately sometimes, for a quick check-up.
+
+[00:09:40] Anjali Rao: Kavita, I wanted to ask about the recall list again.
+[00:09:47] Kavita Rane: Yes.
+[00:09:50] Anjali Rao: You said the software shows who's due. When did someone last work through it?
+[00:09:58] Kavita Rane: Honestly? Maybe March. We did a batch of calls before the summer.
+[00:10:07] Anjali Rao: How did that go?
+[00:10:11] Kavita Rane: Good actually. We filled a whole week from it.
+[00:10:18] Anjali Rao: And then it stopped.
+[00:10:22] Kavita Rane: Then it got busy and it stopped.
+[00:10:28] Anjali Rao: That's important. It worked, and it still stopped. That tells us the problem isn't the idea, it's that it depends on someone having a free afternoon.
+[00:10:42] Kavita Rane: Which never happens.
+
+[00:12:30] Dev Menon: Prakash, do you use WhatsApp with patients?
+[00:12:36] Prakash Iyer: Yes yes. They send me message, I reply.
+[00:12:43] Dev Menon: On your personal number?
+[00:12:47] Prakash Iyer: My number only. Twenty years same number.
+[00:12:54] Dev Menon: What happens when you're on leave?
+[00:12:59] Prakash Iyer: I take my phone.
+[00:13:04] Kavita Rane: This is what I mean. Everything at Baner is inside Prakash.
+[00:13:12] Anjali Rao: And when he retires?
+[00:13:16] Kavita Rane: Please don't say that in front of Dr. Joshi.
+[00:13:22] Prakash Iyer: (laughs) Five more years madam.
+
+[00:15:50] Anjali Rao: Last thing. If we gave you something on a screen tomorrow, what would make you not use it?
+[00:16:00] Prakash Iyer: If it takes longer than the diary.
+[00:16:06] Prakash Iyer: Patient is standing in front of me. I cannot say wait, computer is loading.
+[00:16:15] Anjali Rao: That's fair and it's the right test.
+[00:16:21] Dev Menon: What about typing? Would you rather tap options than type?
+[00:16:28] Prakash Iyer: Tapping is better. Typing I am slow.
+[00:16:35] Kavita Rane: Marathi keyboard also he doesn't use.
+[00:16:41] Dev Menon: Noted.
+
+[00:18:20] Anjali Rao: Kavita, one for you — Dr. Joshi mentioned six or seven thousand patient files. Do you agree with that number?
+[00:18:31] Kavita Rane: In the software it will show. I can check.
+[00:18:37] Anjali Rao: Could you send us that, and the recall count?
+[00:18:43] Kavita Rane: I'll try this week.
+[00:18:48] Anjali Rao: Thank you. That's what I need.
+
+[Call ended 00:19:02.]

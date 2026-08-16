@@ -10,7 +10,7 @@ from pathlib import Path
 from app.graph.pipeline import pipeline
 from app.tools import transcript
 
-SAMPLE = Path(__file__).resolve().parent.parent / "sample_client" / "call_1_kickoff.txt"
+SAMPLE = Path(__file__).resolve().parent.parent / "samples" / "zippo" / "call_1_kickoff.txt"
 
 
 def check_parser():

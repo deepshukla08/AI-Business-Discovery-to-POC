@@ -1,0 +1,130 @@
+SmileCraft Dental — Discovery Call 1
+Date: 09 September 2024
+Duration: 38:20
+Participants: Dr. Meera Joshi (SmileCraft, Founder & Principal Dentist), Kavita Rane
+(SmileCraft, Practice Manager), Sunil Bhatt (SmileCraft, Accounts — joined late),
+Anjali Rao (Consultant), Dev Menon (Consultant, Tech)
+Auto-generated transcript. Speaker labels may be imperfect.
+
+[00:00:12] Anjali Rao: Thanks for making the time. Where would you like to start?
+[00:00:19] Dr. Meera Joshi: I'll be direct. We want an app. Patients should be able to book online, see their treatment plan, pay. Like everything else in their life.
+[00:00:33] Anjali Rao: Understood. How does booking happen today?
+[00:00:38] Kavita Rane: Phone. They call the branch, front desk writes it in the system.
+[00:00:45] Dev Menon: One system across all three branches?
+[00:00:49] Kavita Rane: Kothrud and Viman Nagar are on the same software. Baner is still on the paper diary.
+[00:00:58] Dr. Meera Joshi: Baner we acquired last year. We haven't moved them yet.
+[00:01:05] Anjali Rao: So if a patient goes to Kothrud and then Baner, what happens?
+[00:01:12] Kavita Rane: We don't know their history. We ask them.
+[00:01:17] Dev Menon: You ask the patient what treatment they had?
+[00:01:21] Kavita Rane: Yes. Or we call Baner and someone checks the diary.
+[00:01:28] Dr. Meera Joshi: It's not good. I know.
+[00:01:33] Anjali Rao: How often does a patient move between branches?
+[00:01:39] Kavita Rane: More than you'd think. People book wherever there's a slot.
+
+[00:02:10] Anjali Rao: Talk me through a normal day at the front desk.
+[00:02:16] Kavita Rane: Morning I print the day list. Then I start calling patients to confirm.
+[00:02:24] Anjali Rao: You call every patient the same morning?
+[00:02:29] Kavita Rane: The ones I can get to. If it's a full day I only call the long appointments.
+[00:02:38] Dev Menon: How long does that take?
+[00:02:42] Kavita Rane: An hour, hour and a half. And half don't pick up.
+[00:02:50] Anjali Rao: What happens if you don't reach them?
+[00:02:55] Kavita Rane: Then we find out at 11 o'clock when they don't turn up.
+[00:03:02] Dr. Meera Joshi: And the chair sits empty. That's the number that hurts.
+[00:03:09] Anjali Rao: Do you know your no-show rate?
+[00:03:13] Dr. Meera Joshi: It's high. Kavita would know better.
+[00:03:19] Kavita Rane: Depends on the day. Mondays are worse.
+[00:03:26] Anjali Rao: Roughly what percentage?
+[00:03:30] Kavita Rane: I haven't counted. It feels like one in five.
+[00:03:37] Dr. Meera Joshi: When a chair is empty for forty minutes, that's the whole margin on that slot gone.
+
+[00:04:15] Dev Menon: When someone doesn't show, do you refill the slot?
+[00:04:21] Kavita Rane: I try. I call from the waiting list.
+[00:04:27] Kavita Rane: But by the time I know, it's too late for anyone to reach us.
+[00:04:35] Anjali Rao: Where's the waiting list?
+[00:04:39] Kavita Rane: In my notebook. And some on WhatsApp.
+[00:04:46] Dev Menon: Not in the software?
+[00:04:50] Kavita Rane: The software has a field but nobody fills it properly.
+
+[00:05:30] Anjali Rao: Let's talk about after the appointment. Patient has a filling done. Then what?
+[00:05:39] Dr. Meera Joshi: I write the notes, I tell them come back in six months.
+[00:05:46] Anjali Rao: And do they?
+[00:05:49] Dr. Meera Joshi: (laughs) Some do.
+[00:05:54] Kavita Rane: We're supposed to call them for recall. We don't get to it.
+[00:06:01] Anjali Rao: Supposed to — is there a list somewhere?
+[00:06:07] Kavita Rane: The software can show due recalls. Nobody opens that screen.
+[00:06:15] Dr. Meera Joshi: This is my real frustration. I do good work on someone's teeth and then I never see them again until it's an emergency.
+[00:06:27] Anjali Rao: How many patients have you treated overall, roughly?
+[00:06:33] Dr. Meera Joshi: Across three branches, thousands. Six, seven thousand files maybe.
+[00:06:41] Anjali Rao: And how many come back within a year?
+[00:06:46] Dr. Meera Joshi: I genuinely don't know. That's the problem.
+
+[00:08:20] Dev Menon: What's the software you're on?
+[00:08:25] Kavita Rane: It's called DentaSoft. Desktop, installed on the front desk machine.
+[00:08:33] Dev Menon: Does it have an API? Any way to get data out?
+[00:08:39] Kavita Rane: There's an export to Excel.
+[00:08:44] Dev Menon: We'd need to look at what it exports.
+[00:08:49] Kavita Rane: I can send you a screenshot of the appointment screen.
+[00:08:55] Dev Menon: That would help, yes.
+
+[00:10:05] Anjali Rao: Dr. Joshi, you mentioned payment in the app. How does payment work now?
+[00:10:13] Dr. Meera Joshi: Cash, UPI, card. Front desk takes it after treatment.
+[00:10:20] Anjali Rao: And treatment plans — a root canal over three visits, say?
+[00:10:27] Dr. Meera Joshi: Patient pays per visit usually. Sometimes they pay full in advance for a package.
+[00:10:36] Kavita Rane: And sometimes they stop coming halfway and there's a balance nobody chases.
+[00:10:44] Anjali Rao: Who would chase it?
+[00:10:47] Kavita Rane: Me. Which means nobody.
+
+[00:13:40] Sunil Bhatt: Sorry I'm late, was on a call with the insurance people.
+[00:13:47] Anjali Rao: No problem. We were talking about payments — is insurance a big part?
+[00:13:55] Sunil Bhatt: Corporate patients, yes. Maybe a fifth of our volume.
+[00:14:03] Sunil Bhatt: One thing while I'm here — for any insured treatment, the pre-authorisation has to be filed within twenty-four hours of the consultation. If it goes past that the insurer rejects the claim outright and we eat it.
+[00:14:22] Anjali Rao: Twenty-four hours from the consultation.
+[00:14:26] Sunil Bhatt: Yes. We miss it more often than I'd like.
+[00:14:32] Dr. Meera Joshi: Sunil, they're designing a patient app, not an insurance system.
+[00:14:39] Sunil Bhatt: Okay. I'm just saying what breaks.
+
+[00:16:50] Anjali Rao: Kavita, you mentioned Baner is on paper. What happens with their records?
+[00:16:58] Kavita Rane: Physical files in a cupboard. If a patient calls, someone has to walk over and pull the file.
+[00:17:08] Dev Menon: How many files?
+[00:17:11] Kavita Rane: The cupboard is full. Two thousand? I really don't know.
+[00:17:19] Anjali Rao: If you moved Baner onto the software, would someone type all that in?
+[00:17:26] Kavita Rane: That's the question nobody wants to answer.
+[00:17:32] Dr. Meera Joshi: We'd start fresh. Old files stay in the cupboard.
+[00:17:39] Anjali Rao: So a patient with ten years of history at Baner starts as a blank record.
+[00:17:46] Dr. Meera Joshi: Hmm. I hadn't thought of it like that.
+
+[00:20:15] Anjali Rao: What about the dentists? How many are there?
+[00:20:21] Dr. Meera Joshi: Myself, two full-time, and three visiting specialists who come on fixed days.
+[00:20:30] Anjali Rao: Visiting specialists — do their schedules live in the same system?
+[00:20:37] Kavita Rane: We keep their days in a separate sheet because they change often.
+[00:20:44] Dev Menon: So a booking could be made for a day the specialist isn't coming?
+[00:20:51] Kavita Rane: It has happened. Then we call the patient and move them.
+[00:20:58] Dr. Meera Joshi: That is very embarrassing when it happens.
+
+[00:24:30] Anjali Rao: Have you tried to fix any of this before?
+[00:24:36] Dr. Meera Joshi: We bought a WhatsApp reminder tool last year. Bulk messages.
+[00:24:44] Anjali Rao: What happened?
+[00:24:47] Kavita Rane: The messages went out but they weren't personal. "Your appointment is tomorrow." No name, no time, no doctor.
+[00:24:59] Kavita Rane: Patients replied to it and nobody was reading the replies.
+[00:25:07] Dr. Meera Joshi: We stopped it after two months.
+[00:25:12] Anjali Rao: Did it change the no-show rate?
+[00:25:17] Kavita Rane: We didn't measure before or after.
+
+[00:28:40] Dev Menon: One thing about the front desk — how many people?
+[00:28:46] Kavita Rane: One per branch. Two at Kothrud on busy days.
+[00:28:53] Dev Menon: And their comfort with technology?
+[00:28:58] Kavita Rane: The Kothrud girl is quick. Baner is an older gentleman, been there twenty years, he prefers the diary.
+[00:29:09] Dr. Meera Joshi: He knows every patient by name. That's worth something.
+[00:29:16] Anjali Rao: It is. Any system that makes him worse at his job is the wrong system.
+
+[00:32:10] Anjali Rao: Last question from me. If we get this right, what changes for you?
+[00:32:18] Dr. Meera Joshi: I want to stop losing patients I've already earned.
+[00:32:25] Kavita Rane: I want to stop spending my mornings on the phone.
+[00:32:31] Sunil Bhatt: I want the claims to go in on time.
+[00:32:37] Anjali Rao: Three different answers, and they're all the same answer.
+[00:32:44] Dr. Meera Joshi: How so?
+[00:32:47] Anjali Rao: I'll come back to you on that. Let me look at everything first.
+[00:32:55] Dr. Meera Joshi: Fine. But I do want the patient app.
+[00:33:01] Anjali Rao: Noted, clearly.
+
+[Call ended 00:33:12. Remaining duration was scheduling the follow-up.]

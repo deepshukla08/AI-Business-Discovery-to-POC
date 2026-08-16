@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
+import AnswerForm from "@/components/answer-form";
 import BriefView from "@/components/brief-view";
 import FindingsView from "@/components/findings-view";
 import PrototypeView from "@/components/prototype-view";
@@ -67,7 +68,7 @@ export default function ProjectView({ id }: { id: string }) {
     }
   }
 
-  async function startRun() {
+  async function startRun(answers?: { question: string; answer: string }[]) {
     setRunning(true);
     setLog([]);
     setError("");
@@ -84,7 +85,9 @@ export default function ProjectView({ id }: { id: string }) {
     const stamp = () => `+${((performance.now() - t0) / 1000).toFixed(2)}s`;
 
     try {
-      await api.runDiscovery(id, (e) => {
+      await api.runDiscovery(
+        id,
+        (e) => {
         console.log(`%c[run ${stamp()}] ${e.event}`, "color:#6ea8fe;font-weight:600", e);
 
         if (e.event === "start") {
@@ -113,7 +116,11 @@ export default function ProjectView({ id }: { id: string }) {
           say(`extract ×${e.sources} in parallel…`);
           expected = e.sources;
           setStage(1);
-          setStageDetail(`reading ${e.sources} sources at once`);
+          setStageDetail(
+            e.sources === 1
+              ? `reading ${e.chunks} pieces from 1 source`
+              : `reading ${e.sources} sources at once`,
+          );
         }
         if (e.event === "node_done") {
           say(`${e.source} → ${e.findings} findings`);
@@ -136,6 +143,16 @@ export default function ProjectView({ id }: { id: string }) {
           say(`${e.gaps} open questions`);
           setStage(5);
           setStageDetail(`${e.gaps} things the client never told us`);
+        }
+        if (e.event === "awaiting") {
+          // the graph stopped before designing anything; show the brief and the questions
+          setResult({ ...e, awaiting: true });
+          setView("brief");
+          say(`paused — ${e.gaps?.length ?? 0} questions for the client`);
+        }
+        if (e.event === "answered") {
+          say(`continuing with ${e.answers} answer${e.answers === 1 ? "" : "s"}`);
+          setStage(5);
         }
         if (e.event === "redesign") {
           say(`proposal — ${e.steps} steps, ${e.not_solved} pains left unsolved`);
@@ -193,7 +210,9 @@ export default function ProjectView({ id }: { id: string }) {
           console.log("chunks", e.chunks);
           console.groupEnd();
         }
-      });
+        },
+        answers,
+      );
       await refresh();
     } catch (e) {
       say((e as Error).message, "bad");
@@ -208,7 +227,7 @@ export default function ProjectView({ id }: { id: string }) {
   const stagesDone = result?.gaps ? 5 : result ? 2 : 0;
 
   return (
-    <div className="flex min-h-[calc(100vh-57px)] flex-col lg:flex-row">
+    <div className="flex min-h-[calc(100vh-57px)] flex-col lg:h-[calc(100vh-57px)] lg:flex-row">
       {/* ── left rail: everything you put in ─────────────────────────── */}
       <aside className="slim shrink-0 border-line lg:sticky lg:top-[57px] lg:h-[calc(100vh-57px)] lg:w-[340px] lg:overflow-y-auto lg:border-r">
         <div className="space-y-5 p-5">
@@ -285,7 +304,8 @@ export default function ProjectView({ id }: { id: string }) {
 
           <div className="space-y-2">
             <button
-              onClick={startRun}
+              // wrapped: onClick would otherwise hand the MouseEvent in as `answers`
+              onClick={() => startRun()}
               disabled={running || !project.inputs.length}
               className="w-full rounded-xl bg-accent px-4 py-2.5 text-sm font-medium text-on-accent shadow-lg shadow-accent/20 transition hover:brightness-110 active:scale-[0.99] disabled:opacity-30 disabled:shadow-none"
               title={
@@ -345,9 +365,12 @@ export default function ProjectView({ id }: { id: string }) {
       </aside>
 
       {/* ── right: everything that comes out ─────────────────────────── */}
-      <section className="min-w-0 flex-1 p-5 lg:p-8">
+      {/* the pane scrolls, not the page — so the tab strip stays put */}
+      <section className="slim flex min-w-0 flex-1 flex-col lg:overflow-y-auto">
         {running ? (
-          <RunProgress at={stage} detail={stageDetail} />
+          <div className="p-5 lg:p-8">
+            <RunProgress at={stage} detail={stageDetail} />
+          </div>
         ) : !result ? (
           <div className="mx-auto max-w-md py-24 text-center">
             <p className="text-sm text-muted">
@@ -359,11 +382,13 @@ export default function ProjectView({ id }: { id: string }) {
             </p>
           </div>
         ) : (
-          <div className="mx-auto max-w-3xl space-y-5">
-            <div className="flex gap-1">
+          <>
+            {/* its own strip, so switching tabs never moves the tabs — only the
+                content below them changes width */}
+            <div className="sticky top-0 z-10 flex shrink-0 gap-1 border-b border-line bg-bg/90 px-5 py-3 backdrop-blur">
               {(
                 [
-                  ["brief", "Brief", result.gaps?.length ?? 0],
+                  ["brief", result.awaiting ? "Questions" : "Brief", result.gaps?.length ?? 0],
                   ["solution", "Solution", result.outline?.screens.length ?? 0],
                   ["prototype", "Prototype", result.prototype ? 1 : 0],
                   ["evidence", "Evidence", result.insights?.length ?? result.findings.length],
@@ -379,12 +404,31 @@ export default function ProjectView({ id }: { id: string }) {
                   }`}
                 >
                   {label}
-                  <span className="ml-1.5 text-[11px] opacity-60">{count}</span>
+                  <span className="tnum ml-1.5 text-[11px] opacity-60">{count}</span>
                 </button>
               ))}
             </div>
 
+            {/* the prototype gets the whole pane — a demo squeezed into a reading
+                column reads as a screenshot rather than something you can use */}
+            <div
+              className={
+                view === "prototype"
+                  ? "min-h-0 flex-1 p-3"
+                  : "mx-auto w-full max-w-3xl space-y-5 p-5 lg:p-8"
+              }
+            >
+              {view === "brief" && result.awaiting && result.gaps?.length ? (
+              <AnswerForm
+                gaps={result.gaps}
+                chunks={chunkIndex}
+                projectId={id}
+                onSubmit={(answers) => startRun(answers)}
+              />
+            ) : null}
+
             {view === "brief" &&
+              !result.awaiting &&
               (result.brief ? (
                 <BriefView
                   brief={result.brief}
@@ -416,10 +460,11 @@ export default function ProjectView({ id }: { id: string }) {
               />
             )}
 
-            {view === "evidence" && (
-              <FindingsView result={result} projectId={id} chunks={chunkIndex} />
-            )}
-          </div>
+              {view === "evidence" && (
+                <FindingsView result={result} projectId={id} chunks={chunkIndex} />
+              )}
+            </div>
+          </>
         )}
       </section>
     </div>

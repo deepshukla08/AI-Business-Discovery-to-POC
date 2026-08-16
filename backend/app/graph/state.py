@@ -3,7 +3,16 @@
 import operator
 from typing import Annotated, TypedDict
 
-from app.schemas.discovery import Brief, Chunk, Finding, Gap, Insight, Outline, Redesign
+from app.schemas.discovery import (
+    Answer,
+    Brief,
+    Chunk,
+    Finding,
+    Gap,
+    Insight,
+    Outline,
+    Redesign,
+)
 
 
 class DiscoveryState(TypedDict, total=False):
@@ -18,6 +27,7 @@ class DiscoveryState(TypedDict, total=False):
     insights: list[Insight]
     brief: Brief
     gaps: list[Gap]
+    answers: list[Answer]
     redesign: Redesign
     outline: Outline
 
