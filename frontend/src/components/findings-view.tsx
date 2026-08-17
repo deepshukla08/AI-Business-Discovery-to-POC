@@ -2,19 +2,8 @@
 
 import { useMemo, useState } from "react";
 import Cites from "@/components/cites";
+import { FINDING_ORDER, FINDING_STYLE } from "@/lib/labels";
 import type { Chunk, FindingType, Insight, RunResult } from "@/lib/types";
-
-// The one place colour earns its keep: you scan 50 findings and want the pains to jump
-// out without reading. Tinted backgrounds so the same classes work light and dark.
-const TYPE_STYLE: Record<FindingType, string> = {
-  pain: "bg-rose-500/12 text-rose-700 dark:text-rose-300",
-  requirement: "bg-blue-500/12 text-blue-700 dark:text-blue-300",
-  constraint: "bg-amber-500/12 text-amber-700 dark:text-amber-300",
-  question: "bg-teal-500/12 text-teal-700 dark:text-teal-300",
-  fact: "bg-zinc-500/12 text-zinc-600 dark:text-zinc-400",
-};
-
-const ORDER: FindingType[] = ["pain", "requirement", "constraint", "question", "fact"];
 
 export default function FindingsView({
   result,
@@ -64,13 +53,13 @@ export default function FindingsView({
     <div className="space-y-4">
       <div className="space-y-3 rounded-2xl border border-line bg-surface p-4">
         <div className="flex flex-wrap items-center gap-1.5">
-          {ORDER.filter((type) => counts[type]).map((type) => {
+          {FINDING_ORDER.filter((type) => counts[type]).map((type) => {
             const active = types.has(type);
             return (
               <button
                 key={type}
                 onClick={() => toggle(type)}
-                className={`rounded-full px-2.5 py-1 text-[11px] transition ${TYPE_STYLE[type]} ${
+                className={`rounded-full px-2.5 py-1 text-[11px] transition ${FINDING_STYLE[type]} ${
                   active
                     ? "ring-2 ring-current ring-offset-2 ring-offset-surface"
                     : types.size
@@ -120,7 +109,7 @@ export default function FindingsView({
             >
               <div className="flex items-start gap-2.5">
                 <span
-                  className={`mt-0.5 shrink-0 rounded px-1.5 py-0.5 text-[10px] ${TYPE_STYLE[item.type]}`}
+                  className={`mt-0.5 shrink-0 rounded px-1.5 py-0.5 text-[10px] ${FINDING_STYLE[item.type]}`}
                 >
                   {item.type}
                 </span>

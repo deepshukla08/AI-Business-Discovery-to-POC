@@ -74,7 +74,7 @@ works on logistics doesn't work.
 | Chunks | 378 | 263 |
 
 Both are **graded test fixtures, not decoration.** Each carries the same five planted failures,
-and each folder's `TRAPS.md` is the answer key:
+and `samples/answers/` holds the keys — deliberately outside the folders you drag from, so they cannot end up as an input:
 
 | # | The trap | Zippo | SmileCraft |
 |---|---|---|---|
@@ -263,7 +263,15 @@ backend/app/
 frontend/src/
   app/           routes
   components/    workspace UI: left rail collects, right pane shows
-  lib/           types + typed backend client
+  lib/
+    types.ts     every shape — components import types from here, only here
+    api.ts       every call — and nothing else
+    labels.ts    the colour vocabulary, in one file so a `pain` is the same rose everywhere
+
+samples/
+  fixtures.py    shared PDF and screenshot rendering
+  zippo/  smilecraft/     the inputs you drag in
+  answers/       the graded keys, kept out of the folders you drag from
 ```
 
 ---
@@ -272,16 +280,16 @@ frontend/src/
 
 ```powershell
 cd backend; .\.venv\Scripts\python.exe test_tools.py      # every parser, vs the planted traps
-cd backend; .\.venv\Scripts\python.exe test_pipeline.py   # merger + full graph, model stubbed
+cd backend; .\.venv\Scripts\python.exe test_pipeline.py   # merger, graph, pause, resume — model stubbed
 cd backend; .\.venv\Scripts\python.exe test_api.py        # inputs API
 cd frontend; npm run build                                # typecheck + build
 
-cd backend; .\.venv\Scripts\python.exe test_extractor.py  # agent 1        (1 Gemini call)
-cd backend; .\.venv\Scripts\python.exe test_run.py        # upload → stream (3 Gemini calls)
+cd backend; .\.venv\Scripts\python.exe test_extractor.py  # grades one agent's output  (1 call)
+cd backend; .\.venv\Scripts\python.exe test_run.py        # upload → stream → pause     (3 calls)
 ```
 
 The first four are free and deterministic. They cover the parsers against the exact traps in
-`TRAPS.md`, the merge logic, and the graph wiring — including that a finding citing a fake chunk
+the planted traps, the merge logic, and the graph wiring — including that a finding citing a fake chunk
 id gets dropped while an uncited `never_discussed` gap survives.
 
 A full five-source run costs **9 requests**.

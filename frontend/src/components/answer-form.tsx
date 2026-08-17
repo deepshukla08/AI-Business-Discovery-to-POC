@@ -2,13 +2,8 @@
 
 import { useState } from "react";
 import Cites from "@/components/cites";
-import type { Chunk, Gap, GapKind } from "@/lib/types";
-
-const GAP_STYLE: Record<GapKind, [string, string]> = {
-  contradiction: ["bg-rose-500/12 text-rose-700 dark:text-rose-300", "sources disagree"],
-  unanswered: ["bg-amber-500/12 text-amber-700 dark:text-amber-300", "asked, never answered"],
-  never_discussed: ["bg-teal-500/12 text-teal-700 dark:text-teal-300", "never came up"],
-};
+import { GAP_STYLE } from "@/lib/labels";
+import type { Chunk, Gap } from "@/lib/types";
 
 export default function AnswerForm({
   gaps,
@@ -46,11 +41,11 @@ export default function AnswerForm({
 
       <ol className="space-y-3">
         {gaps.map((gap, i) => {
-          const [style, label] = GAP_STYLE[gap.kind] ?? GAP_STYLE.never_discussed;
+          const kind = GAP_STYLE[gap.kind] ?? GAP_STYLE.never_discussed;
           return (
             <li key={i} className="rounded-2xl border border-line bg-surface p-5">
               <div className="flex flex-wrap items-baseline gap-2">
-                <span className={`rounded px-2 py-0.5 text-[11px] ${style}`}>{label}</span>
+                <span className={`rounded px-2 py-0.5 text-[11px] ${kind.chip}`}>{kind.label}</span>
                 <p className="text-sm font-medium">{gap.question}</p>
               </div>
               <p className="mt-1 text-xs text-muted">{gap.why_it_matters}</p>

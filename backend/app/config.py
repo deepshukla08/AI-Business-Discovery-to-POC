@@ -31,6 +31,11 @@ GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.7-flash")
 # they are cheaper and less capable, so they are a fallback, not a default.
 # Aliases like gemini-flash-latest are deliberately absent: they share the quota of
 # whatever they point at, so they add no capacity.
+# Used only by the merger, to tell "the same point twice" from "two different points".
+# Its own quota, separate from the generation models.
+GEMINI_EMBED_MODEL = os.getenv("GEMINI_EMBED_MODEL", "gemini-embedding-2")
+GEMINI_EMBED_FALLBACK = "gemini-embedding-001"
+
 GEMINI_FALLBACKS = [
     "gemini-3.6-flash",
     "gemini-3.5-flash",

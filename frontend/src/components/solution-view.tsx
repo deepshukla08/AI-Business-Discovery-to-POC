@@ -1,22 +1,8 @@
 "use client";
 
 import Cites from "@/components/cites";
-import type { ChangeKind, Chunk, Outline, Redesign } from "@/lib/types";
-
-// what happened to each step, colour-coded so the shape of the change reads at a glance
-const CHANGE_STYLE: Record<ChangeKind, string> = {
-  removed: "bg-rose-500/12 text-rose-700 dark:text-rose-300",
-  automated: "bg-blue-500/12 text-blue-700 dark:text-blue-300",
-  simplified: "bg-teal-500/12 text-teal-700 dark:text-teal-300",
-  new: "bg-amber-500/12 text-amber-700 dark:text-amber-300",
-  unchanged: "bg-zinc-500/12 text-zinc-600 dark:text-zinc-400",
-};
-
-const PRIORITY_STYLE: Record<string, string> = {
-  must: "bg-ink text-bg",
-  should: "border border-ink/60 text-ink",
-  later: "border border-dashed border-muted text-muted",
-};
+import { CHANGE_STYLE, PRIORITY_STYLE } from "@/lib/labels";
+import type { Chunk, Outline, Redesign } from "@/lib/types";
 
 export default function SolutionView({
   redesign,

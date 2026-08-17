@@ -6,7 +6,13 @@ import time
 from google import genai
 from google.genai import errors, types
 
-from app.config import GEMINI_API_KEY, GEMINI_FALLBACKS, GEMINI_MODEL
+from app.config import (
+    GEMINI_API_KEY,
+    GEMINI_EMBED_FALLBACK,
+    GEMINI_EMBED_MODEL,
+    GEMINI_FALLBACKS,
+    GEMINI_MODEL,
+)
 
 _client: genai.Client | None = None
 _lock = threading.Lock()
@@ -125,3 +131,53 @@ def generate_text(prompt: str, *, thinking: str = "MEDIUM", attempts: int = 2) -
     """Plain text out — used for the prototype, which is a file rather than a record."""
     response = _generate([prompt], _base_config(thinking), attempts)
     return response.text or ""
+
+
+# The API caps a batch at 100, and each item in it counts separately against a
+# 100-per-minute free-tier limit — so a normal run of ~150 findings will hit the
+# ceiling once and has to wait it out.
+EMBED_BATCH = 100
+EMBED_DIMENSIONS = 768
+
+
+def embed(texts: list[str]) -> list[list[float]] | None:
+    """Vectors for comparing meaning. Returns None if the service will not serve us —
+    the merger falls back to word overlap rather than failing the whole run."""
+    if not texts:
+        return []
+
+    vectors: list[list[float]] = []
+    for start in range(0, len(texts), EMBED_BATCH):
+        batch = texts[start : start + EMBED_BATCH]
+        got = _embed_batch(batch)
+        if got is None:
+            return None
+        vectors.extend(got)
+    return vectors
+
+
+def _embed_batch(batch: list[str]) -> list[list[float]] | None:
+    for model in (GEMINI_EMBED_MODEL, GEMINI_EMBED_FALLBACK):
+        for attempt in range(2):
+            try:
+                response = client().models.embed_content(
+                    model=model,
+                    # a flat list of strings is read as ONE multi-part document and
+                    # returns a single vector; nesting each string batches them
+                    contents=[[text] for text in batch],
+                    config={
+                        "task_type": "SEMANTIC_SIMILARITY",
+                        "output_dimensionality": EMBED_DIMENSIONS,
+                    },
+                )
+                return [e.values for e in response.embeddings]
+            except errors.ClientError as refused:
+                if refused.code != 429:
+                    raise
+                if attempt == 0:
+                    print("  (embedding rate limit — waiting 25s)", flush=True)
+                    time.sleep(25)
+            except errors.ServerError:
+                time.sleep(2)
+    print("  (embeddings unavailable — merging on word overlap instead)", flush=True)
+    return None

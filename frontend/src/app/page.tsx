@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { api, type Project } from "@/lib/api";
+import { api } from "@/lib/api";
+import type { Project } from "@/lib/types";
 
 export default function Home() {
   const [projects, setProjects] = useState<Project[] | null>(null);

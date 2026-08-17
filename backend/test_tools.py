@@ -1,7 +1,7 @@
 """Runnable check for every parser: python test_tools.py
 
 No model calls, so this is free and instant. Graded against the traps planted in
-sample_client/TRAPS.md — if a locator drifts, every citation downstream becomes a lie.
+samples/answers/ — if a locator drifts, every citation downstream becomes a lie.
 """
 
 from pathlib import Path

@@ -8,10 +8,10 @@ import FindingsView from "@/components/findings-view";
 import PrototypeView from "@/components/prototype-view";
 import RunProgress from "@/components/run-progress";
 import SolutionView from "@/components/solution-view";
-import { api, formatSize, type ClientInput, type Project, type RunResult } from "@/lib/api";
+import { api, formatSize } from "@/lib/api";
+import { CHIP, NEUTRAL_CHIP } from "@/lib/labels";
+import type { ClientInput, Project, RunResult } from "@/lib/types";
 
-// input kinds are equals, so they share one neutral chip and are told apart by the word
-const KIND_CHIP = "bg-raised text-muted border border-line";
 
 // The pipeline, one step at a time. `built` flips as each agent lands.
 const STAGES: [string, boolean][] = [
@@ -474,9 +474,7 @@ export default function ProjectView({ id }: { id: string }) {
 function InputRow({ input, onDelete }: { input: ClientInput; onDelete: () => void }) {
   return (
     <li className="group flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-raised">
-      <span className={`shrink-0 rounded px-1.5 py-0.5 text-[10px] ${KIND_CHIP}`}>
-        {input.kind}
-      </span>
+      <span className={`shrink-0 ${CHIP} ${NEUTRAL_CHIP}`}>{input.kind}</span>
       <span className="min-w-0 flex-1 truncate text-xs" title={input.label}>
         {input.label}
       </span>

@@ -27,7 +27,38 @@ def finding(kind, text, cites, source):
 
 
 def check_merger():
+    """Free: the embedding call is stubbed, so this tests the grouping, not the model."""
+    from app.agents import merger
     from app.agents.merger import merge
+
+    # a fake embedding space: findings sharing a tag point the same way
+    def fake_embed(texts):
+        def vector(text):
+            morning = 1.0 if "morning" in text.lower() or "assign" in text.lower() else 0.0
+            photos = 1.0 if "photo" in text.lower() else 0.0
+            see = 1.0 if "should see" in text.lower() else 0.0
+            return [morning, photos, see, 0.1]
+
+        return [vector(t) for t in texts]
+
+    original = llm.embed
+    llm.embed = fake_embed
+    try:
+        _check_merger_groups(merge)
+    finally:
+        llm.embed = original
+
+    # and the fallback path, for when embeddings are unavailable
+    llm.embed = lambda texts: None
+    try:
+        _check_merger_groups(merge, fallback=True)
+        print("merger      groups on embeddings, falls back to word overlap when they fail")
+    finally:
+        llm.embed = original
+        assert merger.SAME_MEANING == 0.85, "threshold changed without re-measuring"
+
+
+def _check_merger_groups(merge, fallback: bool = False):
 
     findings = [
         # the same problem, described differently, in three separate files
@@ -60,8 +91,6 @@ def check_merger():
     assert any(i.type == "requirement" for i in insights)
     # nothing is lost
     assert sum(len(i.cites) for i in insights) == 5
-
-    print(f"merger      5 findings -> {len(insights)} insights, top backed by {len(top.sources)} sources")
 
 
 def check_graph_wiring():
