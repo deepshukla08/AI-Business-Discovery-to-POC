@@ -1,0 +1,63 @@
+10/09/2024, 5:12 pm - Messages and calls are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them.
+10/09/2024, 5:12 pm - Kavita Rane created group "SmileCraft x Discovery"
+10/09/2024, 5:12 pm - Kavita Rane added Anjali Rao
+10/09/2024, 5:13 pm - Kavita Rane added Dev Menon
+10/09/2024, 5:13 pm - Kavita Rane added Dr. Meera Joshi
+10/09/2024, 5:20 pm - Kavita Rane: Hello, making this group as discussed. Easier than email for me.
+10/09/2024, 5:24 pm - Anjali Rao: Perfect. Thanks Kavita.
+10/09/2024, 6:40 pm - Dr. Meera Joshi: Please also look at how the patient app can show treatment plans with images. I saw one clinic in Bangalore doing this.
+10/09/2024, 6:52 pm - Anjali Rao: Noted. Do you have the name of that clinic?
+10/09/2024, 7:30 pm - Dr. Meera Joshi: I will find and send
+11/09/2024, 9:15 am - Anjali Rao: Kavita, roughly how many patients do you see per day across the three branches?
+11/09/2024, 1:40 pm - Kavita Rane: Depends on the day
+11/09/2024, 1:41 pm - Kavita Rane: Sorry very busy, two staff on leave today
+11/09/2024, 1:45 pm - Anjali Rao: No problem, whenever you get a chance
+11/09/2024, 8:02 pm - Kavita Rane: Today 3 no shows at Kothrud. One was a 90 minute RCT slot.
+11/09/2024, 8:04 pm - Kavita Rane: Doctor sat idle 90 minutes.
+11/09/2024, 8:15 pm - Anjali Rao: Did anyone from the waiting list get offered it?
+11/09/2024, 8:40 pm - Kavita Rane: No time to call. I found out at 4:15 when he didn't come.
+12/09/2024, 10:05 am - Dev Menon: Kavita, when a patient books at Kothrud but their file is at Baner, what actually happens?
+12/09/2024, 12:20 pm - Kavita Rane: I call Prakash and he reads from the file
+12/09/2024, 12:21 pm - Kavita Rane: If he is with a patient then I tell the doctor we don't have history
+12/09/2024, 12:24 pm - Dev Menon: And the doctor proceeds without it?
+12/09/2024, 12:50 pm - Kavita Rane: Doctor asks the patient. Patient says I think I had a filling on this side
+12/09/2024, 12:52 pm - Dev Menon: Understood.
+13/09/2024, 4:20 pm - Dr. Meera Joshi: Also online payment is important. Patients ask why they cannot pay before coming.
+13/09/2024, 4:35 pm - Anjali Rao: How often do they ask that?
+13/09/2024, 5:10 pm - Dr. Meera Joshi: Sometimes. But it looks unprofessional
+16/09/2024, 9:30 am - Kavita Rane: <Media omitted>
+16/09/2024, 9:31 am - Kavita Rane: This is the appointment screen you asked for
+16/09/2024, 10:15 am - Dev Menon: Thank you. Some slots have two names in them?
+16/09/2024, 11:02 am - Kavita Rane: Yes we double book sometimes for short checkups
+16/09/2024, 11:04 am - Dev Menon: And the TBC column?
+16/09/2024, 11:30 am - Kavita Rane: That means we have not confirmed with the patient yet
+16/09/2024, 11:31 am - Kavita Rane: It stays TBC most of the time because we don't get to calling
+17/09/2024, 7:45 pm - Kavita Rane: Bad day. Specialist did not come, we had booked 4 patients for him.
+17/09/2024, 7:47 pm - Kavita Rane: His schedule changed last week and it was only in the sheet, not in the software
+17/09/2024, 7:55 pm - Anjali Rao: Who updates that sheet?
+17/09/2024, 8:30 pm - Kavita Rane: Me. When he tells me. Sometimes he tells the doctor and not me
+18/09/2024, 11:20 am - Dev Menon: Kavita could you send the DentaSoft Excel export so we can see the fields?
+18/09/2024, 2:15 pm - Kavita Rane: I will ask the vendor how to do full export
+19/09/2024, 9:40 am - Sunil Bhatt: Kavita please remind me about the Deshpande pre auth, it is day 2 already
+19/09/2024, 9:42 am - Kavita Rane: Sorry wrong group Sunil
+19/09/2024, 9:44 am - Anjali Rao: Actually useful, don't worry. Sunil is that the 24 hour window you mentioned?
+19/09/2024, 10:30 am - Sunil Bhatt: Yes. That one is gone now, we will have to absorb it
+19/09/2024, 10:33 am - Anjali Rao: How much is a typical rejected claim worth?
+19/09/2024, 4:15 pm - Sunil Bhatt: Depends on treatment. That one was around 18000
+20/09/2024, 8:20 pm - Kavita Rane: Today a patient came for a crown fitting but the crown had not arrived from the lab
+20/09/2024, 8:22 pm - Kavita Rane: Nobody tracks lab work. It is a paper slip in a tray
+20/09/2024, 8:30 pm - Anjali Rao: That's a new one, thank you. How often?
+20/09/2024, 8:45 pm - Kavita Rane: Once or twice a month. Very bad experience for the patient
+24/09/2024, 10:10 am - Anjali Rao: Reminder — the patient count and recall count when you can, and Dr Joshi the Bangalore clinic name
+24/09/2024, 10:45 am - Kavita Rane: Yes I will do this week
+26/09/2024, 6:30 pm - Kavita Rane: Prakash is on leave next week, his son's wedding
+26/09/2024, 6:31 pm - Kavita Rane: Baner will be difficult, I am going to sit there myself
+26/09/2024, 6:40 pm - Anjali Rao: Who covers normally?
+26/09/2024, 7:20 pm - Kavita Rane: Nobody. This is the first leave he has taken in 3 years
+27/09/2024, 9:15 am - Dr. Meera Joshi: Any update on the app design? Board is asking
+27/09/2024, 9:50 am - Anjali Rao: We will bring something you can click next week
+27/09/2024, 9:52 am - Dr. Meera Joshi: 👍
+30/09/2024, 8:05 pm - Kavita Rane: One more thing, when patients pay part payment for a package we write it in a register
+30/09/2024, 8:06 pm - Kavita Rane: The software does not track balance properly so we keep a separate book
+30/09/2024, 8:20 pm - Dev Menon: Is that book per branch?
+30/09/2024, 8:35 pm - Kavita Rane: Per branch yes. Kothrud one, Viman Nagar one, Baner has it in the diary itself

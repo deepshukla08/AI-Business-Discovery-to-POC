@@ -1,0 +1,163 @@
+Zippo Logistics — Discovery Call 1 (Kickoff)
+Date: 04 March 2024
+Duration: 41:12
+Participants: Priya Nair (Zippo, Co-founder), Ravi Deshmukh (Zippo, Operations Manager),
+Sameer Kulkarni (Zippo, Accounts), Anjali Rao (Consultant), Dev Menon (Consultant, Tech)
+Auto-generated transcript. Speaker labels may be imperfect.
+
+[00:00:11] Anjali Rao: Can everyone hear me? Priya, you're on mute I think.
+[00:00:19] Priya Nair: Yes yes, sorry. Can you hear now?
+[00:00:22] Anjali Rao: Perfect. So thanks for making time. Maybe start with what made you reach out.
+[00:00:31] Priya Nair: See, basically we want an app. A mobile app where the customer can track their order. Like Swiggy, that kind of tracking.
+[00:00:44] Anjali Rao: Okay. And what's happening today when a customer wants to know where their order is?
+[00:00:51] Priya Nair: They call. They call us and then Ravi has to find out.
+[00:00:57] Ravi Deshmukh: They call me. Not us. Me.
+[00:01:02] Priya Nair: (laughs) Yes okay, they call Ravi.
+[00:01:06] Anjali Rao: Ravi, how many of those calls in a day?
+[00:01:11] Ravi Deshmukh: Honestly I stopped counting. Morning is less. After 2pm it starts. Maybe thirty, forty calls. Some days more.
+[00:01:24] Dev Menon: And when a customer calls, what do you actually do?
+[00:01:29] Ravi Deshmukh: I look at the sheet, see which driver has it. Then I call the driver. If he picks up, I get to know. Many times he is riding, he doesn't pick up. Then I call back the customer and say it will come today.
+[00:01:47] Anjali Rao: So you're the switchboard.
+[00:01:50] Ravi Deshmukh: Correct. I am the switchboard, the tracking system, everything.
+[00:01:58] Priya Nair: That's why we need the app. So customer can just see it themselves.
+[00:02:05] Anjali Rao: Let me back up a bit and understand the full day. Where do orders come from in the first place?
+[00:02:14] Ravi Deshmukh: We work with brands. Right now mainly two big ones — BlueCart and Hometown. Plus some small ones.
+[00:02:24] Ravi Deshmukh: BlueCart sends an Excel file every evening on email. Hometown, their person sends on WhatsApp. Sometimes photo of a list, sometimes typed.
+[00:02:38] Dev Menon: Sorry — a photo of a list? Like a picture?
+[00:02:42] Ravi Deshmukh: Yes. Screenshot of their system. I have to type it out.
+[00:02:48] Dev Menon: How long does that take?
+[00:02:52] Ravi Deshmukh: One hour, one and half hour. Depends how many.
+[00:03:00] Anjali Rao: Every day?
+[00:03:02] Ravi Deshmukh: Every day. Sunday also, half day.
+[00:03:09] Anjali Rao: Okay. So you type everything into one sheet.
+[00:03:14] Ravi Deshmukh: One Excel. I have made it properly, it has all columns. Order number, area, address, COD amount, driver name, status.
+[00:03:27] Priya Nair: Ravi's Excel is famous. If Ravi's laptop dies the company stops.
+[00:03:34] Ravi Deshmukh: (laughs) It's on the drive also.
+[00:03:38] Anjali Rao: Is it shared? Can anyone else open it?
+[00:03:43] Ravi Deshmukh: Sameer opens it for billing. But then sometimes both of us have it open and it says someone else is editing, and one version gets saved wrong.
+[00:03:56] Sameer Kulkarni: That happened last month. I lost half a day of entries.
+[00:04:03] Anjali Rao: Right. So then how do drivers find out what they're delivering?
+[00:04:10] Ravi Deshmukh: I call them. Or they call me. Mostly they call me.
+[00:04:17] Ravi Deshmukh: Morning they reach the hub around 8. Then one by one they call and I tell them — you take these ten, you take these twelve.
+[00:04:29] Dev Menon: You read out the addresses on the phone?
+[00:04:33] Ravi Deshmukh: Address I read out, they write in their diary. Or I send on WhatsApp if it's long.
+[00:04:41] Anjali Rao: How many drivers?
+[00:04:44] Ravi Deshmukh: Around forty. Some days thirty-five, some days forty-two. They are not all permanent.
+[00:04:54] Priya Nair: We have a core team of about twenty-five. Rest are on-call.
+[00:05:03] Anjali Rao: And this assignment process — how long does it take you in the morning?
+[00:05:10] Ravi Deshmukh: Till 10, 10:30 I am only on the phone. Non stop.
+[00:05:18] Anjali Rao: So roughly two and a half hours of phone calls before the day even starts.
+[00:05:25] Ravi Deshmukh: Yes. And in between the brand also calls, customer also calls.
+[00:05:33] Priya Nair: See this is the thing, we know it's bad. That's why the app.
+[00:05:40] Anjali Rao: I'm going to keep asking about today's process for a bit, if that's okay. It usually changes what the app should be.
+[00:05:49] Priya Nair: Sure sure.
+[00:05:53] Dev Menon: Ravi, when a delivery is actually done, how do you know?
+[00:06:00] Ravi Deshmukh: Driver sends photo on WhatsApp. Photo of the package at the door, or customer holding it.
+[00:06:09] Dev Menon: To your personal WhatsApp?
+[00:06:12] Ravi Deshmukh: My number, yes. There is also a group but mostly personal.
+[00:06:19] Dev Menon: So proof of delivery is sitting in your phone gallery.
+[00:06:24] Ravi Deshmukh: (laughs) Correct. My phone is full always. I delete old photos every week.
+[00:06:33] Anjali Rao: What happens if a brand disputes a delivery? Says it never arrived?
+[00:06:40] Ravi Deshmukh: Then I search WhatsApp. Scroll and find the photo. Sometimes I can't find it.
+[00:06:49] Sameer Kulkarni: And then we eat the cost. Last quarter that was — I'd have to check, but it was significant.
+[00:06:59] Anjali Rao: Do you have a number on that?
+[00:07:03] Sameer Kulkarni: I can pull it. Rough guess, sixty, seventy thousand rupees in the quarter.
+[00:07:12] Priya Nair: It's not small.
+[00:07:16] Anjali Rao: Okay that's useful. Ravi, you mentioned COD earlier — cash on delivery?
+[00:07:24] Ravi Deshmukh: Yes, maybe forty percent orders are COD. Driver collects cash.
+[00:07:32] Anjali Rao: And that cash comes back how?
+[00:07:36] Ravi Deshmukh: End of day driver comes to hub, gives cash, I tick in the sheet.
+[00:07:44] Sameer Kulkarni: Which we then reconcile against what the brand says was collected. That's a whole thing.
+[00:07:53] Dev Menon: Does that ever not match?
+[00:07:57] Sameer Kulkarni: Regularly. Usually it's a data entry mistake, sometimes it's genuine.
+[00:08:06] Priya Nair: Sameer, don't scare them.
+[00:08:10] Sameer Kulkarni: I'm just saying what happens.
+[00:08:15] Anjali Rao: No, this is exactly what we need. Please keep going.
+
+[Discussion of specific brand contracts, 08:20 to 14:40, not relevant to scope — summarised: BlueCart contract renews in August, Hometown is month to month.]
+
+[00:14:52] Anjali Rao: Ravi, coming back — you said drivers call you at night as well?
+[00:15:01] Ravi Deshmukh: Night is the worst. Because next day's orders come in evening, so they message me at 9, 10, 11 — sir kal ka kya hai, what do I have tomorrow.
+[00:15:16] Ravi Deshmukh: I tell them wait, I'll tell in the morning. But they keep asking because they want to know if they have work.
+[00:15:27] Anjali Rao: Because their income depends on it.
+[00:15:31] Ravi Deshmukh: Exactly. On-call ones especially. If there is no work for them tomorrow they want to know today.
+[00:15:41] Priya Nair: I didn't know they message you that late.
+[00:15:46] Ravi Deshmukh: Every night, Priya. Every night.
+[00:15:52] Anjali Rao: How does that make the morning worse?
+[00:15:58] Ravi Deshmukh: Because in the morning I have to remember who I promised what. Sometimes I give one order to two people by mistake.
+[00:16:10] Dev Menon: What happens then?
+[00:16:13] Ravi Deshmukh: Both go to the same address. Customer is confused. One driver has wasted a trip and he shouts at me.
+[00:16:24] Anjali Rao: How often?
+[00:16:27] Ravi Deshmukh: Not daily. But every week two, three times, something like this happens.
+[00:16:36] Priya Nair: That's a lot actually, when you add it up.
+[00:16:42] Anjali Rao: Have you tried anything to fix it before?
+[00:16:47] Priya Nair: Yes, that's important — we bought a software last year. A logistics app.
+[00:16:55] Dev Menon: What happened?
+[00:16:58] Priya Nair: Drivers didn't use it. We paid for six months and stopped.
+[00:17:06] Anjali Rao: Do you know why they didn't use it?
+[00:17:11] Ravi Deshmukh: It was in English only. And too many buttons. Some of our drivers, they can read Hindi and Marathi, English is difficult.
+[00:17:24] Ravi Deshmukh: Also it needed login with password every time. They forget password.
+[00:17:32] Dev Menon: Do they all have smartphones at least?
+[00:17:37] Ravi Deshmukh: Most have. WhatsApp everyone has, so smartphone is there. But old phones, low storage.
+[00:17:47] Dev Menon: So a heavy app might not install.
+[00:17:51] Ravi Deshmukh: That was also a problem. Some said no space.
+[00:17:58] Priya Nair: But that's why I'm saying, customer app is different. Customer has good phone.
+[00:18:06] Anjali Rao: We'll come to that. I want to understand the driver side properly because that seems to be where the pain is.
+[00:18:15] Priya Nair: Hmm. Okay.
+
+[Interruption 18:20 to 22:10 — Ravi took a call from a driver. Priya and Anjali discussed
+timelines informally.]
+
+[00:22:14] Anjali Rao: Sorry, that was ironic timing.
+[00:22:19] Ravi Deshmukh: (laughs) See, this is my whole day.
+[00:22:26] Anjali Rao: What was that one?
+[00:22:29] Ravi Deshmukh: He reached the address, customer not there. Asking what to do.
+[00:22:36] Dev Menon: And what do you do?
+[00:22:39] Ravi Deshmukh: I tell him try calling customer. If not, bring it back. Then tomorrow it goes again.
+[00:22:48] Anjali Rao: Is that recorded anywhere? That it failed once?
+[00:22:54] Ravi Deshmukh: I write in remarks column. "NA" — not available.
+[00:23:01] Sameer Kulkarni: Which is why the remarks column is a mess. Everyone writes differently.
+[00:23:09] Anjali Rao: Do you report failed deliveries to the brand?
+[00:23:14] Ravi Deshmukh: They ask sometimes. Then I filter the sheet.
+[00:23:21] Priya Nair: BlueCart has started asking for a weekly report. That's new.
+[00:23:28] Anjali Rao: What's in that report?
+[00:23:31] Priya Nair: How many delivered, how many failed, average time. We are making it manually now.
+[00:23:40] Ravi Deshmukh: I make it Sunday. Takes me three hours.
+[00:23:47] Anjali Rao: Okay.
+
+[00:31:02] Sameer Kulkarni: Anjali, one thing from my side — whatever you build, accounts needs a
+daily CSV of completed deliveries by 8pm. Otherwise our invoicing slips to the next day and the
+brands hold payment. That's the only thing I really need.
+[00:31:22] Anjali Rao: Noted. Daily CSV, 8pm.
+[00:31:27] Priya Nair: Sameer that's a detail, let them think about the big picture first.
+[00:31:34] Sameer Kulkarni: It's not a detail for me but okay.
+
+[00:31:41] Anjali Rao: Priya, tell me about the customer tracking idea. What do you imagine?
+[00:31:49] Priya Nair: Customer gets a link, opens it, sees a map with the bike moving. Like the food apps.
+[00:31:58] Dev Menon: Live GPS on the driver's phone, that means the app is running in background all day.
+[00:32:07] Ravi Deshmukh: Battery will finish. They are riding whole day.
+[00:32:13] Dev Menon: That's the concern, yes.
+[00:32:17] Priya Nair: Okay maybe not moving map. But something.
+[00:32:23] Anjali Rao: Would a status — picked up, on the way, delivered — with a time, solve the calls?
+[00:32:32] Ravi Deshmukh: Ninety percent of calls are just "where is my order". If they can see something, most calls will stop.
+[00:32:42] Priya Nair: Then that is enough for now maybe.
+[00:32:48] Anjali Rao: Good, that's helpful.
+
+[00:33:10] Anjali Rao: Last thing on my list — what does success look like? If we build the right
+thing, what changes for you?
+[00:33:21] Priya Nair: We can take more brands without hiring more Ravis.
+[00:33:28] Ravi Deshmukh: I want to switch off my phone at 8pm.
+[00:33:34] Priya Nair: (laughs) That's fair.
+[00:33:38] Sameer Kulkarni: Invoicing on time.
+[00:33:43] Anjali Rao: That's three clear things. Good.
+[00:33:49] Anjali Rao: I'll send some follow-up questions on WhatsApp, if that's easier than email.
+[00:33:56] Ravi Deshmukh: WhatsApp is better. Email I see only at night.
+[00:34:03] Anjali Rao: Understood. We'll set up a second call once we've gone through this.
+[00:34:11] Priya Nair: How long do you need?
+[00:34:14] Anjali Rao: Give us two weeks. We'll come back with a direction.
+[00:34:21] Priya Nair: Okay. And you'll show us the app design?
+[00:34:27] Anjali Rao: We'll show you something you can click, yes.
+[00:34:33] Priya Nair: Perfect. Thank you both.
+[00:34:38] Ravi Deshmukh: Thank you.
+
+[Call ended 00:34:44. Remaining duration was reconnection attempts.]

@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+/* `dark:` follows our own toggle rather than the OS setting, so the switch actually works */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Monochrome. Emphasis comes from value and weight, never hue — so the only thing
+   colour could have told you (this is a pain, that is a fact) is carried by how solid
+   a chip is instead. */
+@theme {
+  /* light */
+  --color-bg: #fbfbfb;
+  --color-surface: #ffffff;
+  --color-raised: #f3f3f3;
+  --color-line: #e4e4e4;
+  --color-ink: #0d0d0d;
+  --color-muted: #737373;
+  --color-accent: #0d0d0d;
+  --color-accent-soft: #efefef;
+  --color-on-accent: #ffffff;
+  --color-glow: rgb(0 0 0 / 0.05);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Two selectors deep so these reliably beat the :root block Tailwind emits above. */
+:root[data-theme="dark"] {
+  --color-bg: #08080a;
+  --color-surface: #101012;
+  --color-raised: #18181b;
+  --color-line: #26262a;
+  --color-ink: #f2f2f3;
+  --color-muted: #8a8a91;
+  --color-accent: #f2f2f3;
+  --color-accent-soft: #1e1e22;
+  /* accent is near-white here, so anything sitting on it must be near-black */
+  --color-on-accent: #08080a;
+  --color-glow: rgb(255 255 255 / 0.05);
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-feature-settings: "cv11", "ss01";
+}
+
+/* counts and timestamps line up in columns instead of jittering */
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* thin scrollbars in the rail and log so they don't eat the layout */
+.slim::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.slim::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 3px;
+}
+.slim::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted);
+}
+.slim::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* one restrained flourish, on the single sentence that matters most */
+.goal-card {
+  background:
+    radial-gradient(120% 140% at 0% 0%, var(--color-glow), transparent 60%),
+    var(--color-surface);
+}
