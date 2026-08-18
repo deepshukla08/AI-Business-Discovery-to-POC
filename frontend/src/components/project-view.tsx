@@ -8,6 +8,7 @@ import FindingsView from "@/components/findings-view";
 import PrototypeView from "@/components/prototype-view";
 import RunProgress from "@/components/run-progress";
 import SolutionView from "@/components/solution-view";
+import StateLog from "@/components/state-log"; // TEMPORARY — debug, remove before submitting
 import { api, formatSize } from "@/lib/api";
 import { CHIP, NEUTRAL_CHIP } from "@/lib/labels";
 import type { ClientInput, Project, RunResult } from "@/lib/types";
@@ -221,13 +222,52 @@ export default function ProjectView({ id }: { id: string }) {
     }
   }
 
-  if (error && !project) return <p className="p-6 text-sm text-ink">{error}</p>;
-  if (!project) return <p className="p-6 text-sm text-muted">Loading…</p>;
+  // TEMPORARY — debug. Declared before the early returns so it logs even while loading.
+  const debugState = {
+    projectId: id,
+    "project.name": project?.name,
+    "project.status": project?.status,
+    "project.inputs": project?.inputs,
+    running,
+    stage,
+    stageDetail,
+    view,
+    error: error || null,
+    logLines: log,
+    "result?": Boolean(result),
+    "result.awaiting": result?.awaiting,
+    "result.chunks": result?.chunks,
+    "result.findings": result?.findings,
+    "result.insights": result?.insights,
+    "result.brief": result?.brief ?? null,
+    "result.gaps": result?.gaps,
+    "result.answers": result?.answers,
+    "result.redesign": result?.redesign ?? null,
+    "result.outline": result?.outline ?? null,
+    "result.prototype": result?.prototype,
+    "result.prototype_faults": result?.prototype_faults,
+  };
+
+  if (error && !project)
+    return (
+      <>
+        <StateLog state={debugState} />
+        <p className="p-6 text-sm text-ink">{error}</p>
+      </>
+    );
+  if (!project)
+    return (
+      <>
+        <StateLog state={debugState} />
+        <p className="p-6 text-sm text-muted">Loading…</p>
+      </>
+    );
 
   const stagesDone = result?.gaps ? 5 : result ? 2 : 0;
 
   return (
     <div className="flex min-h-[calc(100vh-57px)] flex-col lg:h-[calc(100vh-57px)] lg:flex-row">
+      <StateLog state={debugState} /> {/* TEMPORARY — debug, remove before submitting */}
       {/* ── left rail: everything you put in ─────────────────────────── */}
       <aside className="slim shrink-0 border-line lg:sticky lg:top-[57px] lg:h-[calc(100vh-57px)] lg:w-[340px] lg:overflow-y-auto lg:border-r">
         <div className="space-y-5 p-5">
